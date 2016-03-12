@@ -22,7 +22,9 @@ public:
 	string getMajorActor() const;
 
 	//operator overloads
-	bool operator==(ComedyMovie& other) const;
+	bool operator==(ClassicMovie& other) const;
+	bool operator<(ClassicMovie& other) const;
+	bool operator>(ClassicMovie& other) const;
 
 	string getInfo() const;
 	int hashCode() const;

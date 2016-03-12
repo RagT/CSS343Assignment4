@@ -18,10 +18,12 @@ public:
 
 	//getters and setters
 	virtual int getStock() const;
-	virtual bool setStock(int stock);
+	virtual bool setStock(int newStock);
 
 	//operator overloads
 	virtual bool operator==(Item& other) const = 0;
+	virtual bool operator<(Item& other) const = 0;
+	virtual bool operator>(Item& other) const = 0;
 
 	//Returns all the item information as a string
 	virtual string getInfo() const = 0;

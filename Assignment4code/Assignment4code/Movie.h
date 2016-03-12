@@ -31,6 +31,8 @@ public:
 
 	//operator overloads
 	virtual bool operator==(Movie& other) const = 0;
+	virtual bool operator<(Movie& other) const = 0;
+	virtual bool operator>(Movie& other) const = 0;
 
 	virtual string getInfo() const = 0;
 

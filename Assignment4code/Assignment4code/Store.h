@@ -45,7 +45,7 @@ public:
 
 private:
 	//Stores items in the store
-	ItemStore inventory;
+	ItemStorage inventory;
 
 	//Stores data about customers
 	map<int, Customer *> customers;
