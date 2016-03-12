@@ -9,7 +9,7 @@ track of.
 */
 
 #pragma once
-#include "HashTable.h"
+#include "ItemStorage.h"
 #include "Customer.h"
 #include "Item.h"
 #include "Transaction.h"
@@ -45,7 +45,7 @@ public:
 
 private:
 	//Stores items in the store
-	HashTable inventory;
+	ItemStore inventory;
 
 	//Stores data about customers
 	map<int, Customer *> customers;

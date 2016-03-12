@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="ClassicMovie.h" />
     <ClInclude Include="ComedyMovie.h" />
+    <ClInclude Include="Customer.h" />
     <ClInclude Include="DramaMovie.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemStorage.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="ClassicMovie.cpp" />
     <ClCompile Include="ComedyMovie.cpp" />
+    <ClCompile Include="Customer.cpp" />
     <ClCompile Include="DramaMovie.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemStorage.cpp" />
