@@ -11,7 +11,9 @@ class DramaMovie : public Movie
 		: Movie(title, stock, director, releaseYear, mediaType) {};
 
 	//operator overloads
-	bool operator==(ComedyMovie& other) const;
+	bool operator==(DramaMovie& other) const;
+	bool operator<(DramaMovie& other) const;
+	bool operator>(DramaMovie& other) const;
 
 	string getInfo() const;
 	int hashCode() const;
