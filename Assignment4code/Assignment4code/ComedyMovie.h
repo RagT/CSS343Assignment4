@@ -8,8 +8,7 @@ Represents Comedy Genre of Movie
 class ComedyMovie :public Movie
 {
 public:
-	ComedyMovie(string title, int stock, string director, int releaseYear,
-		int releaseMonth, string majorActor, string mediaType)
+	ComedyMovie(string title, int stock, string director, string mediaType)
 		: Movie(title, stock, director, releaseYear, mediaType) {};
 
 	//operator overloads

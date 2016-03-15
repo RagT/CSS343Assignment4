@@ -6,8 +6,7 @@ Represents Drama genre of Movie
 #include "Movie.h"
 class DramaMovie : public Movie
 {
-	DramaMovie(string title, int stock, string director, int releaseYear,
-		int releaseMonth, string majorActor, string mediaType)
+	DramaMovie(string title, int stock, string director, int releaseYear, string mediaType)
 		: Movie(title, stock, director, releaseYear, mediaType) {};
 
 	//operator overloads
