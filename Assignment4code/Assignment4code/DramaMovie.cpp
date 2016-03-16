@@ -32,5 +32,5 @@ bool DramaMovie::operator>(DramaMovie & other) const
 string DramaMovie::getInfo() const
 {
 	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
-		+ "   Director: " + director + " Media Type: " + mediaType;
+		+ "   Director: " + director + " Media Type: ";
 }
