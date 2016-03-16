@@ -18,7 +18,7 @@ protected:
 	int hashString(const string& str) const;
 
 public:
-	Movie(string title, int stock, string director, int releaseYear, string mediaType)
+	Movie(string title, int stock, string director, int releaseYear)
 		: Item(stock) {};
 	~Movie();
 
