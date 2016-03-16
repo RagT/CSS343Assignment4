@@ -1,6 +1,11 @@
 #include "Transaction.h"
 
-
+Transaction::Transaction()
+{
+	itemCheckedOut = NULL;
+	returned = true;
+	custID = 0;
+}
 
 Transaction::Transaction(Item* item)
 {

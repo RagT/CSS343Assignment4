@@ -8,10 +8,12 @@ by the customer.
 class Transaction
 {
 private:
-	Item * itemCheckedOut;
+	Item * itemCheckedOut; //The item that the transaction is being performed upon
 	bool returned; //Whether item has been returned yet 
+	int custID;	//Customer that performed the transaction
 
 public:
+	Transaction();	//default constructor
 	Transaction(Item * item);
 	~Transaction();
 
