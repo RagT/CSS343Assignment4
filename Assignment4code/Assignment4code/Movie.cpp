@@ -45,7 +45,7 @@ int Movie::hashCode() const
 	return hashString(title) + hashString(director) + releaseYear + hashString(mediaType);
 }
 
-string Movie::getMediaType() const
+/*string Movie::getMediaType() const
 {
   return mediaType;
-}
+}*/
