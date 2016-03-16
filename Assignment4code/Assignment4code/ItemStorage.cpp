@@ -34,7 +34,6 @@ bool ItemStorage::insert(Item * itemToInsert)
 	if (ItemArr[code % size] == NULL)
 	{
 		ItemArr[code % size] = itemToInsert;
-		return true;
 	}
 	else
 	{
@@ -59,13 +58,14 @@ bool ItemStorage::insert(Item * itemToInsert)
 		comedies.insert(itemToInsert);
 	}
 	size++;
+	return true;
 }
 
 //Takes in two parameters an itemToFind and a pass by reference parameter to retrieve the item pointer
 //from the hash table. Returns true if item is found in table false if not.
 bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 {
-	int code = itemToFind->hashCode;
+	int code = itemToFind->hashCode();
 	if(*ItemArr[code % size] == *itemToFind)
 	{
 		itemToRetrieve = ItemArr[code % size];

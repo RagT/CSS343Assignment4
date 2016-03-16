@@ -1,11 +1,5 @@
 #include "ComedyMovie.h"
 
-ComedyMovie::ComedyMovie(string title, int stock, string director, string mediaType)
-	: Movie(title, stock, director, releaseYear, mediaType) 
-{
-
-}
-
 ComedyMovie::~ComedyMovie()
 {
 }
@@ -32,5 +26,5 @@ bool ComedyMovie::operator>(ComedyMovie & other) const
 string ComedyMovie::getInfo() const
 {
 	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
-		+ "   Director: " + director + " Media Type: ";
+		+ "   Director: " + director;
 }

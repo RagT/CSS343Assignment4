@@ -1,13 +1,5 @@
 #include "ClassicMovie.h"
 
-ClassicMovie::ClassicMovie(string title, int stock, string director, int releaseYear,
-	int releaseMonth, string majorActor, string mediaType)
-	: Movie(title, stock, director, releaseYear, mediaType)
-{
-	this->releaseMonth = releaseMonth;
-	this->majorActor = majorActor;
-}
-
 ClassicMovie::~ClassicMovie()
 {
 }
@@ -46,6 +38,6 @@ string ClassicMovie::getInfo() const
 {
 	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
 		+ "   Release Month: " + to_string(releaseMonth) + "   Director: " + director +
-		"   Major Actor: " + majorActor + " Media Type: ";
+		"   Major Actor: " + majorActor;
 }
 

@@ -1,19 +1,9 @@
 #include "Movie.h"
 
-
-
-Movie::Movie(string title, int stock, string director, int releaseYear):Item(stock)
-{
-  this->title = title;
-  this->director = director;
-  this->releaseYear = releaseYear;
-}
-
-
 int Movie::hashString(const string& str) const
 {
 	int code = 0;
-	for (int i = 1; i <= str.length; i++)
+	for (int i = 1; i <= str.length(); i++)
 	{
 		code += i * (int)str.at(i);
 	}
@@ -42,10 +32,6 @@ int Movie::getReleaseYear() const
 
 int Movie::hashCode() const
 {
-	return hashString(title) + hashString(director) + releaseYear + hashString(mediaType);
+	return hashString(title) + hashString(director) + releaseYear;
 }
 
-/*string Movie::getMediaType() const
-{
-  return mediaType;
-}*/

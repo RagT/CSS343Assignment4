@@ -7,8 +7,9 @@ Represents Drama genre of Movie
 
 class DramaMovie : public Movie
 {
-	DramaMovie(string title, int stock, string director, int releaseYear, string mediaType)
-		: Movie(title, stock, director, releaseYear, mediaType) {};
+	DramaMovie(string title, int stock, string director, int releaseYear)
+		: Movie(title, stock, director, releaseYear) {};
+	~DramaMovie();
 
 	//operator overloads
 	bool operator==(DramaMovie& other) const;

@@ -19,7 +19,12 @@ protected:
 
 public:
 	Movie(string title, int stock, string director, int releaseYear)
-		: Item(stock) {};
+		: Item(stock) 
+	{
+		this->title = title;
+		this->director = director;
+		this->releaseYear = releaseYear;
+	};
 	~Movie();
 
 	//getter methods
