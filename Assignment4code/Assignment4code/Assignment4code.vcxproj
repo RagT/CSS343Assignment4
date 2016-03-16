@@ -165,6 +165,7 @@
     <ClCompile Include="ItemStorage.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Store.cpp" />
+    <ClCompile Include="StoreMain.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -27,6 +27,12 @@ public:
 	//build Customer map from a text file
 	void buildCustomers(ifstream& infile);
 
+	//Create and add all items to the Store
+	void addItems(ifstream& infile);
+
+	//Runs all commads from passed in ifstream
+	void processCommands(ifstream& infile);
+
 	//Creates a new customer and adds them to store
 	bool addCustomer(int id, string fName, string lName);
 
