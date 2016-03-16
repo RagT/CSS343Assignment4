@@ -41,3 +41,4 @@ bool ClassicMovie::operator>(ClassicMovie & other) const
 {
 	return !(*this < other) && !(*this == other);
 }
+

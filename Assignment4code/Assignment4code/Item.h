@@ -17,8 +17,8 @@ public:
 	~Item();
 
 	//getters and setters
-	virtual int getStock() const;
-	virtual bool setStock(int newStock);
+	int getStock() const;
+	bool setStock(int newStock);
 
 	//operator overloads
 	virtual bool operator==(Item& other) const = 0;

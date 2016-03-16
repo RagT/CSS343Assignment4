@@ -11,6 +11,16 @@ Movie::Movie(string title, int stock, string director, int releaseYear, string m
 }
 
 
+int Movie::hashString(const string& str) const
+{
+	int code = 0;
+	for (int i = 1; i <= str.length; i++)
+	{
+		code += i * (int)str.at(i);
+	}
+	return code;
+}
+
 Movie::~Movie()
 {
 }
@@ -29,6 +39,11 @@ string Movie::getDirector() const
 int Movie::getReleaseYear() const
 {
   return releaseYear;
+}
+
+int Movie::hashCode() const
+{
+	return hashString(title) + hashString(director) + releaseYear + hashString(mediaType);
 }
 
 string Movie::getMediaType() const
