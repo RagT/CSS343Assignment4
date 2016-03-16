@@ -2,12 +2,11 @@
 
 
 
-Movie::Movie(string title, int stock, string director, int releaseYear, string mediaType):Item(stock)
+Movie::Movie(string title, int stock, string director, int releaseYear):Item(stock)
 {
   this->title = title;
   this->director = director;
   this->releaseYear = releaseYear;
-  this->mediaType = mediaType;
 }
 
 
