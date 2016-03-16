@@ -9,7 +9,7 @@ class ComedyMovie :public Movie
 {
 public:
 	ComedyMovie(string title, int stock, string director, string mediaType)
-		: Movie(title, stock, director, releaseYear, mediaType) {};
+		: Movie(title, stock, director, releaseYear) {};
 
 	//operator overloads
 	bool operator==(ComedyMovie& other) const;
