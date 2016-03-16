@@ -24,4 +24,8 @@ public:
 
 	//sets returned field to true
 	void returnItem();
+	
+	void setBorrowed();
+	void setMediaType(char);
+	void setCustID(int);
 };

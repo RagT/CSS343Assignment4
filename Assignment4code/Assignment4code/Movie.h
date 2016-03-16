@@ -25,7 +25,7 @@ public:
 	//getter methods
 	string getTitle() const;
 	string getDirector() const;
-	string getMediaType() const;
+	//string getMediaType() const;
 	int getReleaseYear() const;
 
 	//operator overloads
