@@ -28,3 +28,9 @@ bool DramaMovie::operator>(DramaMovie & other) const
 {
 	return !(*this < other) && !(*this == other);
 }
+
+string DramaMovie::getInfo() const
+{
+	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
+		+ "   Director: " + director + " Media Type: " + mediaType;
+}
