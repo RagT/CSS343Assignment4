@@ -24,6 +24,9 @@ public:
 	Store();
 	~Store();
 
+	//build Customer map from a text file
+	void buildCustomers(ifstream& infile);
+
 	//Creates a new customer and adds them to store
 	bool addCustomer(int id, std::string fName, string lName);
 
