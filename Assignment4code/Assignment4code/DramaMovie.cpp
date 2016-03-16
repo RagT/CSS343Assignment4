@@ -1,7 +1,7 @@
 #include "DramaMovie.h"
 
-DramaMovie::DramaMovie(string title, int stock, string director, int releaseYear, string mediaType)
-	: Movie(title, stock, director, releaseYear, mediaType) 
+DramaMovie::DramaMovie(string title, int stock, string director, int releaseYear)
+	: Movie(title, stock, director, releaseYear) 
 {
 
 }
