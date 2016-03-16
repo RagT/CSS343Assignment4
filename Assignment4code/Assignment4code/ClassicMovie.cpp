@@ -46,6 +46,6 @@ string ClassicMovie::getInfo() const
 {
 	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
 		+ "   Release Month: " + to_string(releaseMonth) + "   Director: " + director +
-		"   Major Actor: " + majorActor + " Media Type: " + mediaType;
+		"   Major Actor: " + majorActor + " Media Type: ";
 }
 
