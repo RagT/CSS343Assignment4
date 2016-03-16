@@ -2,8 +2,13 @@
 
 ItemStorage::ItemStorage()
 {
-	ItemArr.resize(START_SIZE, NULL);
+	ItemArr = new Item*[START_SIZE];
 	size = 0;
+	arrLength = START_SIZE;
+	for (int i = 0; i < arrLength; i++)
+	{
+		ItemArr[i] = NULL;
+	}
 }
 
 
@@ -13,6 +18,7 @@ ItemStorage::~ItemStorage()
 	{
 		delete ItemArr[i];
 	}
+	delete[] ItemArr;
 }
 
 //Inserts new item in hashtable if spot isn't initially available,
@@ -47,6 +53,7 @@ bool ItemStorage::insert(Item * itemToInsert)
 	{
 		comedies.insert(itemToInsert);
 	}
+	size++;
 }
 
 //Takes in two parameters an itemToFind and a pass by reference parameter to retrieve the item pointer
@@ -74,3 +81,34 @@ bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 		return true;
 	}
 }
+
+//Resizes array to have double the capacity if load factor is above 0.5
+void ItemStorage::resize()
+{
+	if ((double)size / arrLength > 0.5)
+	{
+		Item** newItemArr = new Item*[arrLength * 2];
+		for (int i = 0; i < arrLength; i++)
+		{
+			if (ItemArr[i] != NULL)
+			{
+				int newCode = ItemArr[i]->hashCode();
+				if (newItemArr[newCode % (arrLength * 2)] == NULL)
+				{
+					newItemArr[newCode] = ItemArr[i];
+				}
+				else
+				{
+					newCode = (newCode + 1) % (arrLength * 2);
+					while (newItemArr[newCode] != NULL)
+					{
+						newCode = (newCode + 1) % (arrLength * 2);
+					}
+					newItemArr[newCode] = ItemArr[i];
+				}
+				ItemArr[i] = NULL;
+			}
+		}
+	}
+}
+

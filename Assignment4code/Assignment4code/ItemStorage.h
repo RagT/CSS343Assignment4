@@ -21,12 +21,15 @@ const int START_SIZE = 101;
 class ItemStorage
 {
 private:
-	vector<Item*> ItemArr;
+	Item** ItemArr;
+	int arrLength; //capacity of array
 	int size; // number of elements in table
 
 	set<Item*> classics;
 	set<Item*> dramas;
 	set<Item*> comedies;
+
+	void resize();
 
 public:
 	ItemStorage();
