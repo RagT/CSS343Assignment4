@@ -28,7 +28,7 @@ public:
 	void buildCustomers(ifstream& infile);
 
 	//Creates a new customer and adds them to store
-	bool addCustomer(int id, std::string fName, string lName);
+	bool addCustomer(int id, string fName, string lName);
 
 	//Adds a new item to the store. Takes in string containing relevant item information.
 	bool addItem(string itemData);

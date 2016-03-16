@@ -5,7 +5,7 @@ Transaction::Transaction()
 	itemCheckedOut = NULL;
 	returned = true;
 	custID = 0;
-	mediaType = '';
+	mediaType = 'Z';
 }
 
 Transaction::Transaction(Item* item)
