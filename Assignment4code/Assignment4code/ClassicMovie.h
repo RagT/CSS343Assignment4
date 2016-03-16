@@ -27,5 +27,4 @@ public:
 	bool operator>(ClassicMovie& other) const;
 
 	string getInfo() const;
-	int hashCode() const;
 };

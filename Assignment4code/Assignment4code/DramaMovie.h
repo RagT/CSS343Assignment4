@@ -16,5 +16,4 @@ class DramaMovie : public Movie
 	bool operator>(DramaMovie& other) const;
 
 	string getInfo() const;
-	int hashCode() const;
 };

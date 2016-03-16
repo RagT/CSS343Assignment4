@@ -18,6 +18,8 @@ protected:
 	//Type of media 'D' for dvd 'V' for VCR etc.
 	string mediaType;
 
+	int hashString(const string& str) const;
+
 public:
 	Movie(string title, int stock, string director, int releaseYear, string mediaType)
 		: Item(stock) {};
@@ -36,5 +38,5 @@ public:
 
 	virtual string getInfo() const = 0;
 
-	virtual int hashCode() const = 0;
+	int hashCode() const;
 };

@@ -41,3 +41,11 @@ bool ClassicMovie::operator>(ClassicMovie & other) const
 {
 	return !(*this < other) && !(*this == other);
 }
+
+string ClassicMovie::getInfo() const
+{
+	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
+		+ "   Release Month: " + to_string(releaseMonth) + "   Director: " + director +
+		"   Major Actor: " + majorActor + " Media Type: " + mediaType;
+}
+

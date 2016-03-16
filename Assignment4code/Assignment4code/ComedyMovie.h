@@ -17,5 +17,4 @@ public:
 	bool operator>(ComedyMovie& other) const;
 
 	string getInfo() const;
-	int hashCode() const;
 };
