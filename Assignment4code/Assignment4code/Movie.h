@@ -15,13 +15,10 @@ protected:
 	string director;
 	int releaseYear;
 
-	//Type of media 'D' for dvd 'V' for VCR etc.
-	string mediaType;
-
 	int hashString(const string& str) const;
 
 public:
-	Movie(string title, int stock, string director, int releaseYear, string mediaType)
+	Movie(string title, int stock, string director, int releaseYear)
 		: Item(stock) {};
 	~Movie();
 

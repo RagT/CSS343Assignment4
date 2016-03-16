@@ -11,6 +11,7 @@ private:
 	Item * itemCheckedOut; //The item that the transaction is being performed upon
 	bool returned; //Whether item has been returned yet 
 	int custID;	//Customer that performed the transaction
+	char mediaType; //D is for 'DVD'
 
 public:
 	Transaction();	//default constructor
