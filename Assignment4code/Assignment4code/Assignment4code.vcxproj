@@ -167,6 +167,11 @@
     <ClCompile Include="Store.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="data4commands.txt" />
+    <Text Include="data4customers.txt" />
+    <Text Include="data4movies.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

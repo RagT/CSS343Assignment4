@@ -11,6 +11,7 @@ Uses a hashtable to store the items.
 #include "DramaMovie.h"
 #include "ComedyMovie.h"
 using namespace std;
+
 class ItemStorage
 {
 private:
