@@ -14,8 +14,8 @@ protected:
 
 public:
 	ClassicMovie(string title, int stock, string director, int releaseYear,
-		int releaseMonth, string majorActor, string mediaType)
-		: Movie(title, stock, director, releaseYear, mediaType) {};
+		int releaseMonth, string majorActor)
+		: Movie(title, stock, director, releaseYear) {};
 
 	//getter methods
 	int getReleaseMonth() const;
