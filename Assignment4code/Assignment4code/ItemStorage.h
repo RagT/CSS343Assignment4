@@ -37,5 +37,9 @@ public:
 
 	bool insert(Item * itemToInsert);
 	bool find(Item * itemToFind, Item *& itemToRetrieve) const;
+
+	set<Item*> getClassics();
+	set<Item*> getDramas();
+	set<Item*> getComedies();
 };
 

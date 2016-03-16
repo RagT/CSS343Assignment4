@@ -1,3 +1,7 @@
+/*
+ItemStorage.cpp
+Contains Implementation for class that stores all the Items in the store.
+*/
 #include "ItemStorage.h"
 
 ItemStorage::ItemStorage()
@@ -25,6 +29,7 @@ ItemStorage::~ItemStorage()
 //uses linear probing to find open spot.
 bool ItemStorage::insert(Item * itemToInsert)
 {
+	resize();
 	int code = itemToInsert->hashCode();
 	if (ItemArr[code % size] == NULL)
 	{
@@ -80,6 +85,21 @@ bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 		itemToRetrieve = ItemArr[foundIndex];
 		return true;
 	}
+}
+
+set<Item*> ItemStorage::getClassics()
+{
+	return classics;
+}
+
+set<Item*> ItemStorage::getDramas()
+{
+	return dramas;
+}
+
+set<Item*> ItemStorage::getComedies()
+{
+	return comedies;
 }
 
 //Resizes array to have double the capacity if load factor is above 0.5
