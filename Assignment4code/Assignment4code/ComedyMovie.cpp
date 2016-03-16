@@ -1,5 +1,11 @@
 #include "ComedyMovie.h"
 
+ComedyMovie::ComedyMovie(string title, int stock, string director, string mediaType)
+	: Movie(title, stock, director, releaseYear, mediaType) 
+{
+
+}
+
 ComedyMovie::~ComedyMovie()
 {
 }

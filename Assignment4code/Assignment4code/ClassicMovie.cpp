@@ -1,5 +1,13 @@
 #include "ClassicMovie.h"
 
+ClassicMovie::ClassicMovie(string title, int stock, string director, int releaseYear,
+	int releaseMonth, string majorActor, string mediaType)
+	: Movie(title, stock, director, releaseYear, mediaType)
+{
+	this->releaseMonth = releaseMonth;
+	this->majorActor = majorActor;
+}
+
 ClassicMovie::~ClassicMovie()
 {
 }
