@@ -6,8 +6,10 @@ Uses a hashtable to store the items.
 
 #pragma once
 #pragma once
-#include <vector>
-#include "Item.h"
+#include <set>
+#include "ClassicMovie.h"
+#include "DramaMovie.h"
+#include "ComedyMovie.h"
 using namespace std;
 class ItemStorage
 {
@@ -16,8 +18,9 @@ private:
 	int arrLength; // length of array
 	int size; // number of elements in table
 
-	//Calls specific item's hashcode method
-	int hashCode(Item *) const;
+	set<ClassicMovie> classics;
+	set<DramaMovie> dramas;
+	set<ComedyMovie> comedies;
 
 public:
 	ItemStorage();
