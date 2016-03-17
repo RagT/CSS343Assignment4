@@ -107,6 +107,7 @@ void Store::processCommands(ifstream& infile)
 			{
 				cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 			}
+			infile.get();
 		}
 
 		//B: Set Transaction as borrowed
