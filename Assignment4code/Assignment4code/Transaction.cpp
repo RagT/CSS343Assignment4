@@ -58,6 +58,11 @@ void Transaction::setCustID(int other)
 	custID = other;
 }
 
+void Transaction::setItem(Item* other)
+{
+	itemCheckedOut = other;
+}
+
 void Transaction::display()
 {
 	cout << "Borrow by " << "Customer: " << custID << " " << itemCheckedOut->getInfo() << endl;
