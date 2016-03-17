@@ -130,10 +130,11 @@ void Store::processCommands(ifstream& infile)
 	}
 }
 
+//Displays the history of transactions (Checkouts and Returns) for customer with given id
 void Store::displayHistory(int customerId) const
 {
-	cout << "Transactions for customer with id " << customerId << "Name: " << customers.at(customerId)->getFName << " " 
-		<< customers.at(customerId)->getLName << endl;
+	cout << "Transactions for customer with id " << customerId << "Name: " << customers.at(customerId)->getFName() << " " 
+		<< customers.at(customerId)->getLName() << endl;
 	list<Transaction*>  temp = history.at(customerId);
 	for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator) 
 	{
