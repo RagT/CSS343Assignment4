@@ -225,7 +225,7 @@ void Store::processCommands(ifstream& infile)
 						rental->setItem(found);
 
 						//store completed transaction in history
-						list<Transaction*>  temp = history.at(rental->getCustID());
+						list<Transaction*>  temp = history.find(rental->getCustID())->second;
 						temp.push_back(rental);
 					}
 
@@ -262,7 +262,7 @@ void Store::processCommands(ifstream& infile)
 						rental->setItem(found);
 
 						//store completed transaction in history
-						list<Transaction*>  temp = history.at(rental->getCustID());
+						list<Transaction*>  temp = history.find(rental->getCustID())->second;
 						temp.push_back(rental);
 					}
 
@@ -333,7 +333,7 @@ void Store::processCommands(ifstream& infile)
 //Displays the history of transactions (Checkouts and Returns) for customer with given id
 void Store::displayHistory(int customerId) const
 {
-	cout << "Transactions for customer with id " << customerId << "   Name: " << customers.at(customerId)->getFName() << " " 
+	cout << "Transactions for customer with id " << customerId << "   Name: " << customers.find(customerId)->second->getFName() << " " 
 		<< customers.find(customerId)->second->getLName() << endl;
 	if (history.find(customerId) != history.end())
 	{
