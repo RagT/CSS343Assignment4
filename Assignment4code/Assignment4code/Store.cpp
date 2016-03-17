@@ -36,24 +36,28 @@ void Store::addItems(ifstream & infile)
 	{
 		Item * newItem = NULL;
 		char itemType = infile.get();
-		if (itemType = 'D')
+		if (itemType == 'D')
 		{
 			newItem = new DramaMovie();
 			newItem->setData(infile);
+			inventory.insert(newItem);
 		}
-		else if (itemType = 'F')
+		else if (itemType == 'F')
 		{
 			newItem = new ComedyMovie();
 			newItem->setData(infile);
+			inventory.insert(newItem);
 		} 
-		else if (itemType = 'C')
+		else if (itemType == 'C')
 		{
 			newItem = new ClassicMovie();
 			newItem->setData(infile);
+			inventory.insert(newItem);
 		}
 		else
 		{
 			cout << "Error Invalid Item Type: " << itemType << endl;
+			infile.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 }

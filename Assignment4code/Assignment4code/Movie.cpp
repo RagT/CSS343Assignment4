@@ -5,7 +5,7 @@ int Movie::hashString(const string& str) const
 	int code = 0;
 	for (int i = 1; i <= str.length(); i++)
 	{
-		code += i * (int)str.at(i);
+		code += i * (int)str.at(i - 1);
 	}
 	return code;
 }

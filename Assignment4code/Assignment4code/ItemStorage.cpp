@@ -18,7 +18,7 @@ ItemStorage::ItemStorage()
 
 ItemStorage::~ItemStorage()
 {
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < arrLength; i++)
 	{
 		delete ItemArr[i];
 	}
@@ -31,16 +31,16 @@ bool ItemStorage::insert(Item * itemToInsert)
 {
 	resize();
 	int code = itemToInsert->hashCode();
-	if (ItemArr[code % size] == NULL)
+	if (ItemArr[code % arrLength] == NULL)
 	{
-		ItemArr[code % size] = itemToInsert;
+		ItemArr[code % arrLength] = itemToInsert;
 	}
 	else
 	{
-		code = (code + 1) % size;
+		code = (code + 1) % arrLength;
 		while (ItemArr[code] != NULL)
 		{
-			code = (code + 1) % size;
+			code = (code + 1) % arrLength;
 		}
 		ItemArr[code] = itemToInsert;
 	}
@@ -73,12 +73,12 @@ bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 	}
 	else
 	{
-		int foundIndex = (code + 1) % size;
-		while (!(*ItemArr[code % size] == *itemToFind) || foundIndex == code % size)
+		int foundIndex = (code + 1) % arrLength;
+		while (!(*ItemArr[code % arrLength] == *itemToFind) || foundIndex == code % arrLength)
 		{
-			foundIndex = (foundIndex + 1) % size;
+			foundIndex = (foundIndex + 1) % arrLength;
 		}
-		if (foundIndex == code % size)
+		if (foundIndex == code % arrLength)
 		{
 			return false;
 		}

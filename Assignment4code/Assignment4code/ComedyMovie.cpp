@@ -38,11 +38,25 @@ string ComedyMovie::getInfo() const
 
 void ComedyMovie::setData(ifstream & infile)
 {
+	infile.get();
+	infile.get();
 	infile >> stock;
 	infile.get();
-	infile >> director;
 	infile.get();
-	infile >> title;
+	char character = infile.get();
+	while (character != ',')
+	{
+		director += character;
+		character = infile.get();
+	}
+	infile.get();
+	character = infile.get();
+	while (character != ',')
+	{
+		title += character;
+		character = infile.get();
+	}
 	infile.get();
 	infile >> releaseYear;
+	infile.get();
 }
