@@ -38,7 +38,11 @@ public:
 	bool insert(Item * itemToInsert);
 	bool find(Item * itemToFind, Item *& itemToRetrieve) const;
 	
+	//ways to display movies
 	void displayAll();
+	void displayClassics();
+	void displayDramas();
+	void displayComedies();
 
 	set<Item*> getClassics();
 	set<Item*> getDramas();
