@@ -334,12 +334,14 @@ void Store::processCommands(ifstream& infile)
 void Store::displayHistory(int customerId) const
 {
 	cout << "Transactions for customer with id " << customerId << "   Name: " << customers.at(customerId)->getFName() << " " 
-		<< customers.at(customerId)->getLName() << endl;
-	
-	list<Transaction*>  temp = history.at(customerId);
-	for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator) 
+		<< customers.find(customerId)->second->getLName() << endl;
+	if (history.find(customerId) != history.end())
 	{
-		(*iterator)->display();
+		list<Transaction*>  temp = history.find(customerId)->second;
+		for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator)
+		{
+			(*iterator)->display();
+		}
 	}
 }
 
