@@ -26,3 +26,13 @@ bool Item::setStock(int newStock)
 	}
 	stock = newStock;
 }
+
+void Item::incrementStock()
+{
+	stock++;
+}
+
+void Item::decrementStock()
+{
+	stock--;
+}

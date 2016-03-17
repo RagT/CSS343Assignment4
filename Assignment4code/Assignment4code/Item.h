@@ -21,6 +21,8 @@ public:
 	//getters and setters
 	int getStock() const;
 	bool setStock(int newStock);
+	void incrementStock();
+	void decrementStock();
 
 	//operator overloads
 	virtual bool operator==(Item& other) const = 0;
