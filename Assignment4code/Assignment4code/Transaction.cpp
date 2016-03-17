@@ -28,6 +28,11 @@ bool Transaction::isReturned() const
 	return returned;
 }
 
+void Transaction::returnItem()
+{
+	returned = true;
+}
+
 void Transaction::setBorrowed()
 {
 	returned = false;
