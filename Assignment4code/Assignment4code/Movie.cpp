@@ -10,6 +10,10 @@ int Movie::hashString(const string& str) const
 	return code;
 }
 
+Movie::Movie()
+{
+}
+
 Movie::~Movie()
 {
 }

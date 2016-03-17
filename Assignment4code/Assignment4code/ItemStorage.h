@@ -11,6 +11,7 @@ Uses sets to store genres of movies in sorted order.
 #include <set>
 #include <vector>
 #include <typeinfo>
+#include <iostream>
 #include "ClassicMovie.h"
 #include "DramaMovie.h"
 #include "ComedyMovie.h"

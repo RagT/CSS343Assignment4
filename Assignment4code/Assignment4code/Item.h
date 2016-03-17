@@ -5,6 +5,7 @@ Abstract class. Must be inherited from.
 */
 #pragma once
 #include <string>
+#include <fstream>
 using namespace std;
 
 class Item
@@ -13,6 +14,7 @@ protected:
 	int stock; //number of this item currently in store
 
 public:
+	Item();
 	Item(int stock);
 	~Item();
 
@@ -30,4 +32,7 @@ public:
 
 	//Returns a hashcode for this item for use in hashTable
 	virtual int hashCode() const = 0;
+
+	//Reads in Item from file
+	virtual void setData(ifstream& infile) = 0;
 };

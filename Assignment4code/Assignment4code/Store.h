@@ -12,10 +12,15 @@ track of.
 #include "ItemStorage.h"
 #include "Customer.h"
 #include "Item.h"
+#include "Movie.h"
+#include "DramaMovie.h"
+#include "ComedyMovie.h"
+#include "ClassicMovie.h"
 #include "Transaction.h"
 #include <map>
 #include <list>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 class Store
@@ -32,12 +37,6 @@ public:
 
 	//Runs all commads from passed in ifstream
 	void processCommands(ifstream& infile);
-
-	//Creates a new customer and adds them to store
-	bool addCustomer(int id, string fName, string lName);
-
-	//Adds a new item to the store. Takes in string containing relevant item information.
-	bool addItem(string itemData);
 
 	//Customer checks out item from the store
 	bool checkOut(int customerId, string itemType, string itemData);

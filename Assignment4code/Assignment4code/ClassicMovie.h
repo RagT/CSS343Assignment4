@@ -10,15 +10,19 @@ class ClassicMovie : public Movie
 protected:
 	//Attributes unique to ClassicMovie
 	int releaseMonth;
-	string majorActor;
+	string majorActorFirst;
+	string majorActorLast;
 
 public:
+	ClassicMovie();
+
 	ClassicMovie(string title, int stock, string director, int releaseYear,
-		int releaseMonth, string majorActor)
+		int releaseMonth, string majorActorFirst, string majorActorLast)
 		: Movie(title, stock, director, releaseYear) 
 	{
 		this->releaseMonth = releaseMonth;
-		this->majorActor = majorActor;
+		this->majorActorFirst = majorActorFirst;
+		this->majorActorLast = majorActorLast;
 	};
 	~ClassicMovie();
 
@@ -27,9 +31,10 @@ public:
 	string getMajorActor() const;
 
 	//operator overloads
-	bool operator==(ClassicMovie& other) const;
-	bool operator<(ClassicMovie& other) const;
-	bool operator>(ClassicMovie& other) const;
+	bool operator==(Item& other) const;
+	bool operator<(Item& other) const;
+	bool operator>(Item& other) const;
 
 	string getInfo() const;
+	void setData(ifstream& infile);
 };

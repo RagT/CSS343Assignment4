@@ -18,6 +18,8 @@ protected:
 	int hashString(const string& str) const;
 
 public:
+	Movie();
+
 	Movie(string title, int stock, string director, int releaseYear)
 		: Item(stock) 
 	{
@@ -26,19 +28,22 @@ public:
 		this->releaseYear = releaseYear;
 	};
 	~Movie();
+	
+	//operator overloads
+	virtual bool operator==(Item& other) const = 0;
+	virtual bool operator<(Item& other) const = 0;
+	virtual bool operator>(Item& other) const = 0;
 
 	//getter methods
 	string getTitle() const;
 	string getDirector() const;
-	//string getMediaType() const;
+	
 	int getReleaseYear() const;
-
-	//operator overloads
-	virtual bool operator==(Movie& other) const = 0;
-	virtual bool operator<(Movie& other) const = 0;
-	virtual bool operator>(Movie& other) const = 0;
 
 	virtual string getInfo() const = 0;
 
 	int hashCode() const;
+
+	//Reads in Item from file
+	virtual void setData(ifstream& infile) = 0;
 };

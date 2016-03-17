@@ -107,7 +107,7 @@ void ItemStorage::displayAll()
 	for (int i = 0; i < arrLength; i++)
 	{
 		if(ItemArr[i] != NULL)
-			cout << *ItemArr[i];
+			cout << ItemArr[i]->getInfo();
 	}
 }
 

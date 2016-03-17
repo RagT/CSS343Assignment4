@@ -1,5 +1,9 @@
 #include "Item.h"
 
+Item::Item()
+{
+}
+
 Item::Item(int stock)
 {
 	this->stock = stock;

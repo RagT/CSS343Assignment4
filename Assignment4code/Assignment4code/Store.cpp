@@ -28,3 +28,32 @@ void Store::buildCustomers(ifstream& infile)
 		}
 	}
 }
+//----------------- addItems ----------------------
+//Creates Items from text file to add to Store
+void Store::addItems(ifstream & infile)
+{
+	while (!infile.eof())
+	{
+		Item * newItem = NULL;
+		char itemType = infile.get();
+		if (itemType = 'D')
+		{
+			newItem = new DramaMovie();
+			newItem->setData(infile);
+		}
+		else if (itemType = 'F')
+		{
+			newItem = new ComedyMovie();
+			newItem->setData(infile);
+		} 
+		else if (itemType = 'C')
+		{
+			newItem = new ClassicMovie();
+			newItem->setData(infile);
+		}
+		else
+		{
+			cout << "Error Invalid Item Type: " << itemType << endl;
+		}
+	}
+}
