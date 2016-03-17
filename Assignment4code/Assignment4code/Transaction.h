@@ -4,7 +4,7 @@ by the customer.
 */
 #pragma once
 #include"Item.h"
-
+#include <iostream>
 class Transaction
 {
 private:
@@ -30,4 +30,5 @@ public:
 	void setBorrowed();
 	void setMediaType(char);
 	void setCustID(int);
+	void display();
 };
