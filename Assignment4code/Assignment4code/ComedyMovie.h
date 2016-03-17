@@ -9,7 +9,7 @@ class ComedyMovie :public Movie
 {
 public:
 	ComedyMovie();
-	ComedyMovie(string title, int stock, string director)
+	ComedyMovie(string title, int stock, string director, int releaseYear)
 		: Movie(title, stock, director, releaseYear) {};
 	~ComedyMovie();
 
