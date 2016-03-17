@@ -20,6 +20,8 @@ public:
 
 	//getters
 	Item * getItem();
+	int getCustID();
+	char getMedia();
 	bool isReturned() const;
 
 	//sets returned field to true
