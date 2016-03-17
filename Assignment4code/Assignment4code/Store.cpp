@@ -127,27 +127,27 @@ void Store::processCommands(ifstream& infile)
 				rental->setCustID(custID);
 				
 				//set the MediaType in the Transaction
-				char media = NULL;
+				char media;
 				infile >> media;
 				rental->setMediaType(media);
 
 				//get genre
-				char genre = NULL;
+				char genre;
 				infile >> genre;
 				infile.get();	//clear space
 
 				if (genre == 'C')
 				{
 					//get month
-					int month = NULL;
+					int month;
 					infile >> month;
 
 					//get year
-					int year = NULL;
+					int year;
 					infile >> year;
 
 					//get actor first name
-					string actorF = NULL;
+					string actorF;
 					char character = infile.get();
 
 					while (character != ' ')
@@ -157,7 +157,7 @@ void Store::processCommands(ifstream& infile)
 					}
 
 					//get actor first name
-					string actorL = NULL;
+					string actorL;
 					character = infile.get();
 
 					while (character != '\n')
@@ -197,7 +197,7 @@ void Store::processCommands(ifstream& infile)
 				else if (genre == 'D')
 				{
 					//get director
-					string director = NULL;
+					string director;
 					char character = infile.get();
 
 					while (character != ',')
@@ -207,7 +207,7 @@ void Store::processCommands(ifstream& infile)
 					}
 
 					//get title
-					string title = NULL;
+					string title;
 					character = infile.get();
 
 					while (character != ',')
@@ -240,7 +240,7 @@ void Store::processCommands(ifstream& infile)
 				else if (genre == 'F')
 				{
 					//get title
-					string title = NULL;
+					string title;
 					char character = infile.get();
 
 					while (character != ',')
@@ -250,7 +250,7 @@ void Store::processCommands(ifstream& infile)
 					}
 
 					//get year
-					int year = NULL;
+					int year;
 					infile >> year;
 
 					//does item exist?
