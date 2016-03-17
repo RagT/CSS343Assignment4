@@ -32,6 +32,11 @@ char Transaction::getMedia()
 	return mediaType;
 }
 
+char Transaction::getGenre()
+{
+	return genre;
+}
+
 bool Transaction::isReturned() const
 {
 	return returned;
@@ -60,6 +65,11 @@ void Transaction::setCustID(int other)
 void Transaction::setItem(Item* other)
 {
 	itemCheckedOut = other;
+}
+
+void Transaction::setGenre(char other)
+{
+	genre = other;
 }
 
 void Transaction::display()
