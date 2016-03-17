@@ -45,7 +45,7 @@ public:
 	bool returnItem(int customerId, string itemType, string itemData);
 
 	//Get the history of a customer with given Customer id
-	string getHistory(int customerId) const;
+	void displayHistory(int customerId) const;
 
 	//Prints entire inventory of store to cout
 	void displayInventory() const;
