@@ -31,4 +31,6 @@ public:
 	void setMediaType(char);
 	void setCustID(int);
 	void display();
+	
+	void setItem(Item*);
 };

@@ -131,7 +131,172 @@ void Store::processCommands(ifstream& infile)
 				infile >> media;
 				rental->setMediaType(media);
 
+				//get genre
+				char genre = NULL;
+				infile >> genre;
+				infile.get();	//clear space
 
+				if (genre == 'C')
+				{
+					//get month
+					int month = NULL;
+					infile >> month;
+
+					//get year
+					int year = NULL;
+					infile >> year;
+
+					//get actor first name
+					string actorF = NULL;
+					char character = infile.get();
+
+					while (character != ' ')
+					{
+						actorF += character;
+						character = infile.get();
+					}
+
+					//get actor first name
+					string actorL = NULL;
+					character = infile.get();
+
+					while (character != '\n')
+					{
+						actorL += character;
+						character = infile.get();
+					}
+
+					
+
+					//does item exist?
+					Item* found = getClassic(month, year, actorF, actorL);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: C " << month << " " <<
+							actorF << " " << actorL << " " << endl;
+					}
+
+					
+
+
+				}
+
+				else if (genre == 'D')
+				{
+					//get director
+					string director = NULL;
+					char character = infile.get();
+
+					while (character != ',')
+					{
+						director += character;
+						character = infile.get();
+					}
+
+					//get title
+					string title = NULL;
+					character = infile.get();
+
+					while (character != ',')
+					{
+						title += character;
+						character = infile.get();
+					}
+
+					//does item exist?
+					Item* found = getDrama(director, title);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: D " << director << " " << title << endl;
+					}
+
+				}
+
+				else if (genre == 'F')
+				{
+					//get title
+					string title = NULL;
+					char character = infile.get();
+
+					while (character != ',')
+					{
+						title += character;
+						character = infile.get();
+					}
+
+					//get year
+					int year = NULL;
+					infile >> year;
+
+					//does item exist?
+					Item* found = getComedy(title, year);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: F " << media << " " << genre << " ";
+
+						//print out the rest of the line
+						while (!infile.eof() && infile.get() != '\n')
+						{
+							cout << infile.get();
+						}
+
+						//spacing
+						cout << endl;
+					}
+				}
+
+				//Invalid movie!
+				else
+				{
+					cout << "Non-Existent video entered. Invalid Line: " << "B " << rental->getCustID() << " " <<
+						media << " " << genre << " ";
+
+					//print out the rest of the line
+					while (!infile.eof() && infile.get() != '\n')
+					{
+						cout << infile.get();
+					}
+
+					//spacing
+					cout << endl;
+				}
 
 			}
 
@@ -150,7 +315,16 @@ void Store::processCommands(ifstream& infile)
 
 		else //invalid Action!
 		{
+			cout << "Invalid Command entered. Invalid Line: ";
 
+			//print out the rest of the line
+			while (!infile.eof() && infile.get() != '\n')
+			{
+				cout << infile.get();
+			}
+
+			//spacing
+			cout << endl;
 		}
 
 	}
