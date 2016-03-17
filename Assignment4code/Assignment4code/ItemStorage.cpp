@@ -3,6 +3,7 @@ ItemStorage.cpp
 Contains Implementation for class that stores all the Items in the store.
 */
 #include "ItemStorage.h"
+#include <iostream>
 
 ItemStorage::ItemStorage()
 {
@@ -102,12 +103,56 @@ set<Item*> ItemStorage::getComedies()
 	return comedies;
 }
 
+//----------------- displayAll() ---------------------------
+//Prints out the entire inventory of Items in separate lines
 void ItemStorage::displayAll()
 {
 	for (int i = 0; i < arrLength; i++)
 	{
 		if(ItemArr[i] != NULL)
-			cout << *ItemArr[i];
+			cout << ItemArr[i]->getInfo() << endl;
+	}
+}
+
+//----------------- displayClassics() ---------------------------
+//Prints out the entire set of Classic movies each in a separate line
+void ItemStorage::displayClassics()
+{
+	//Label
+	cout << "--------------------------Classics-------------------------" << endl;
+	for (set<Item*>::iterator i = classics.begin(); i != classics.end(); i++)
+	{
+		Item* element = *i;
+		
+		cout << element->getInfo() << endl;
+	}
+}
+
+//----------------- displayDramas() ---------------------------
+//Prints out the entire set of Drama movies each in a separate line
+void ItemStorage::displayDramas()
+{
+	//Label
+	cout << "--------------------------Dramas-------------------------" << endl;
+	for (set<Item*>::iterator i = dramas.begin(); i != dramas.end(); i++)
+	{
+		Item* element = *i;
+
+		cout << element->getInfo() << endl;
+	}
+}
+
+//----------------- displayComedies() ---------------------------
+//Prints out the entire set of Comedy movies each in a separate line
+void ItemStorage::displayComedies()
+{
+	//Label
+	cout << "--------------------------Comedies-------------------------" << endl;
+	for (set<Item*>::iterator i = comedies.begin(); i != comedies.end(); i++)
+	{
+		Item* element = *i;
+
+		cout << element->getInfo() << endl;
 	}
 }
 
