@@ -29,7 +29,6 @@ void Customer::setData(ifstream& infile)
 	infile.get();
 	infile >> lName;
 	infile.get();
-
 }
 
 int Customer::getId() const

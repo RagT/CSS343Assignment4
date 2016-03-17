@@ -13,7 +13,6 @@ Transaction::Transaction(Item* item)
 	itemCheckedOut = item;
 }
 
-
 Transaction::~Transaction()
 {
 }
