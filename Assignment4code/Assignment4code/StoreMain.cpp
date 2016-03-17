@@ -17,5 +17,5 @@ int main()
 	Store MovieStore;
 	MovieStore.buildCustomers(customers);
 	MovieStore.addItems(movies);
-	//MovieStore.processCommands(commands);
+	MovieStore.processCommands(commands);
 }
