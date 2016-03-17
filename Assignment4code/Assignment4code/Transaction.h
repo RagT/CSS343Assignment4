@@ -12,6 +12,7 @@ private:
 	bool returned; //Whether item has been returned yet 
 	int custID;	//Customer that performed the transaction
 	char mediaType; //D is for 'DVD'
+	char genre;
 
 public:
 	Transaction();	//default constructor
@@ -22,6 +23,7 @@ public:
 	Item * getItem();
 	int getCustID();
 	char getMedia();
+	char getGenre();
 	bool isReturned() const;
 
 	//sets returned field to true
@@ -33,4 +35,5 @@ public:
 	void display();
 	
 	void setItem(Item*);
+	void setGenre(char);
 };
