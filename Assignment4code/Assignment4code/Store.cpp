@@ -68,7 +68,7 @@ void Store::processCommands(ifstream& infile)
 {
 	while (!infile.eof())
 	{
-		Transaction * rental = NULL;
+		Transaction * rental = new Transaction;
 
 		//Action Type "I" - do nothing, "H" - display customer
 		//"B" - Borrow item, "R" - Return item
