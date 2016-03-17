@@ -1,8 +1,7 @@
 /*
-ItemStorage.h 
+ItemStorage.h
 Handles storing of all items in the store.
 Uses a hashtable to store the items.
-
 Uses sets to store genres of movies in sorted order.
 */
 
@@ -38,11 +37,10 @@ public:
 
 	bool insert(Item * itemToInsert);
 	bool find(Item * itemToFind, Item *& itemToRetrieve) const;
-	
+
 	void displayAll();
 
 	set<Item*> getClassics();
 	set<Item*> getDramas();
 	set<Item*> getComedies();
 };
-

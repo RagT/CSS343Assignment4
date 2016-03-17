@@ -66,7 +66,7 @@ bool ItemStorage::insert(Item * itemToInsert)
 bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 {
 	int code = itemToFind->hashCode();
-	if(*ItemArr[code % size] == *itemToFind)
+	if (*ItemArr[code % size] == *itemToFind)
 	{
 		itemToRetrieve = ItemArr[code % size];
 		return true;
@@ -106,7 +106,7 @@ void ItemStorage::displayAll()
 {
 	for (int i = 0; i < arrLength; i++)
 	{
-		if(ItemArr[i] != NULL)
+		if (ItemArr[i] != NULL)
 			cout << ItemArr[i]->getInfo();
 	}
 }
@@ -140,4 +140,3 @@ void ItemStorage::resize()
 		}
 	}
 }
-
