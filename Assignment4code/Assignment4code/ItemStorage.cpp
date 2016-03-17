@@ -27,7 +27,7 @@ ItemStorage::~ItemStorage()
 
 //Inserts new item in hashtable if spot isn't initially available,
 //uses linear probing to find open spot.
-bool ItemStorage::insert(Item * itemToInsert)
+bool ItemStorage::insert(Item * itemToInsert, char& itemType)
 {
 	resize();
 	int code = itemToInsert->hashCode();
@@ -40,20 +40,27 @@ bool ItemStorage::insert(Item * itemToInsert)
 		code = (code + 1) % arrLength;
 		while (ItemArr[code] != NULL)
 		{
+			//if item already is in hash table simply update its stock
+			if (*ItemArr[code] == *itemToInsert)
+			{
+				ItemArr[code]->setStock(ItemArr[code]->getStock() + itemToInsert->getStock());
+				return false;
+			}
 			code = (code + 1) % arrLength;
 		}
 		ItemArr[code] = itemToInsert;
 	}
+
 	//Insert movie genre into corresponding set
-	if (typeid(*itemToInsert).name() == "ClassicMovie")
+	if (itemType == 'C')
 	{
 		classics.insert(itemToInsert);
 	}
-	if (typeid(*itemToInsert).name() == "DramaMovie")
+	if (itemType == 'D')
 	{
 		dramas.insert(itemToInsert);
 	}
-	if (typeid(*itemToInsert).name() == "ComedyMovie")
+	if (itemType == 'F')
 	{
 		comedies.insert(itemToInsert);
 	}

@@ -40,19 +40,19 @@ void Store::addItems(ifstream & infile)
 		{
 			newItem = new DramaMovie();
 			newItem->setData(infile);
-			inventory.insert(newItem);
+			inventory.insert(newItem, itemType);
 		}
 		else if (itemType == 'F')
 		{
 			newItem = new ComedyMovie();
 			newItem->setData(infile);
-			inventory.insert(newItem);
+			inventory.insert(newItem, itemType);
 		} 
 		else if (itemType == 'C')
 		{
 			newItem = new ClassicMovie();
 			newItem->setData(infile);
-			inventory.insert(newItem);
+			inventory.insert(newItem, itemType);
 		}
 		else
 		{

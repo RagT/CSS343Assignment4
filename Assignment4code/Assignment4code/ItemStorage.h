@@ -35,7 +35,7 @@ public:
 	ItemStorage();
 	~ItemStorage();
 
-	bool insert(Item * itemToInsert);
+	bool insert(Item * itemToInsert, char& itemType);
 	bool find(Item * itemToFind, Item *& itemToRetrieve) const;
 
 	void displayAll();
