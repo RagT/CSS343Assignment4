@@ -1,7 +1,7 @@
 #include "Store.h"
 #include <iostream>
 #include <fstream>
-
+#include <limits>
 
 
 Store::Store()
@@ -63,12 +63,17 @@ void Store::addItems(ifstream & infile)
 }
 
 //----------------- processCommands ----------------------
-//Creates Items from text file to add to Store
+//Reads in data from a text file and updates the rental history of the specified customer
+//using the customer id to determine if the customer exists within the database
+//Existence of a Movie is determined using different movie data combinations based on the genre
+//to search through the correct set of movies the rental might be located
+//ActionTypes determine the action taken on the current line of data (I, H, B, R)
 void Store::processCommands(ifstream& infile)
 {
 	while (!infile.eof())
 	{
-		Transaction * rental = NULL;
+		//create a Transaction
+		Transaction * rental = new Transaction;
 
 		//Action Type "I" - do nothing, "H" - display customer
 		//"B" - Borrow item, "R" - Return item
@@ -107,6 +112,8 @@ void Store::processCommands(ifstream& infile)
 			{
 				cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 			}
+			
+			//gets rid of '\n'
 			infile.get();
 		}
 
@@ -135,36 +142,37 @@ void Store::processCommands(ifstream& infile)
 				rental->setMediaType(media);
 				infile.get();
 
-				//get genre
+				//get genre from infile
 				char genre;
 				infile >> genre;
-				infile.get();	//clear space
 
 				if (genre == 'C')
 				{
-					//get month
+					//get month from infile
 					int month;
 					infile >> month;
 
-					//get year
+					//get year from infile
 					int year;
 					infile >> year;
 
-					//get actor first name
+					//get actor first name from txt file
 					string actorF;
 					infile.get();
 					char character = infile.get();
-
+					
+					//build actor's first name until space
 					while (character != ' ')
 					{
 						actorF += character;
 						character = infile.get();
 					}
 
-					//get actor first name
+					//get actor's last name from txt file
 					string actorL;
 					character = infile.get();
 
+					//build actor's last name
 					while (character != '\n')
 					{
 						actorL += character;
@@ -176,6 +184,7 @@ void Store::processCommands(ifstream& infile)
 					//does item exist?
 					Item* found = getClassic(month, year, actorF, actorL);
 
+					//Item was found
 					if (found != NULL)
 					{
 						//set the found item in rental
@@ -199,6 +208,7 @@ void Store::processCommands(ifstream& infile)
 					//item not found
 					else
 					{
+						//display error message with the rejected line
 						cout << "Non-Existent video entered. Invalid Line: C " << month << " " <<
 							actorF << " " << actorL << " " << endl;
 					}
@@ -208,20 +218,22 @@ void Store::processCommands(ifstream& infile)
 
 				else if (genre == 'D')
 				{
-					//get director
+					//get director from txt file
 					string director;
 					char character = infile.get();
 
+					//build title until comma is reached
 					while (character != ',')
 					{
 						director += character;
 						character = infile.get();
 					}
-
-					//get title
+					
+					//get title from txt file
 					string title;
 					character = infile.get();
 
+					//build title until comma is reached
 					while (character != ',')
 					{
 						title += character;
@@ -230,7 +242,8 @@ void Store::processCommands(ifstream& infile)
 
 					//does item exist?
 					Item* found = getDrama(director, title);
-
+					
+					//Item was found
 					if (found != NULL)
 					{
 						//set the found item in rental
@@ -253,6 +266,7 @@ void Store::processCommands(ifstream& infile)
 					//item not found
 					else
 					{
+						//prints error message with rejected line
 						cout << "Non-Existent video entered. Invalid Line: D " << director << " " << title << endl;
 					}
 
@@ -260,23 +274,25 @@ void Store::processCommands(ifstream& infile)
 
 				else if (genre == 'F')
 				{
-					//get title
+					//get title from txt file
 					string title;
 					char character = infile.get();
-
+					
+					//build title from infile
 					while (character != ',')
 					{
 						title += character;
 						character = infile.get();
 					}
 
-					//get year
+					//get year from infile
 					int year;
 					infile >> year;
 
 					//does item exist?
 					Item* found = getComedy(title, year);
-
+					
+					//Yes: Item is found
 					if (found != NULL)
 					{
 						//set the found item in rental
@@ -296,25 +312,19 @@ void Store::processCommands(ifstream& infile)
 						}
 					}
 
-					//item not found
+					//No: item not found
 					else
 					{
-						cout << "Non-Existent video entered. Invalid Line: F " << media << " " << genre << " ";
-
-						//print out the rest of the line
-						while (!infile.eof() && infile.get() != '\n')
-						{
-							cout << infile.get();
-						}
-
-						//spacing
-						cout << endl;
+						//print out error message with the line
+						cout << "Non-Existent video entered. Invalid Line: F " << title << ", " << year
+							<< endl;
 					}
 				}
 
 				//Invalid movie!
 				else
 				{
+					//print out error message with the line
 					cout << "Non-Existent video entered. Invalid Line: " << "B " << rental->getCustID() << " " <<
 						media << " " << genre << " ";
 
@@ -330,9 +340,13 @@ void Store::processCommands(ifstream& infile)
 
 			}
 
-			else //NO
+			else //NO: Customer does not exist
 			{
+				//print out error message with the line
 				cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
+				
+				//gets rid of '\n'
+				infile.get();
 			}
 
 		}
@@ -347,7 +361,7 @@ void Store::processCommands(ifstream& infile)
 		{
 			cout << "Invalid Command entered. Invalid Line: ";
 
-			//print out the rest of the line
+			//print out the rest of the invalid line
 			while (!infile.eof() && infile.get() != '\n')
 			{
 				cout << infile.get();
@@ -357,6 +371,9 @@ void Store::processCommands(ifstream& infile)
 			cout << endl;
 		}
 
+	//delete Transaction pointer
+	delete rental;
+	rental = NULL;
 	}
 }
 
