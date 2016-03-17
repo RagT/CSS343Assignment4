@@ -127,11 +127,176 @@ void Store::processCommands(ifstream& infile)
 				rental->setCustID(custID);
 				
 				//set the MediaType in the Transaction
-				char media = NULL;
+				char media;
 				infile >> media;
 				rental->setMediaType(media);
 
+				//get genre
+				char genre;
+				infile >> genre;
+				infile.get();	//clear space
 
+				if (genre == 'C')
+				{
+					//get month
+					int month;
+					infile >> month;
+
+					//get year
+					int year;
+					infile >> year;
+
+					//get actor first name
+					string actorF;
+					char character = infile.get();
+
+					while (character != ' ')
+					{
+						actorF += character;
+						character = infile.get();
+					}
+
+					//get actor first name
+					string actorL;
+					character = infile.get();
+
+					while (character != '\n')
+					{
+						actorL += character;
+						character = infile.get();
+					}
+
+					
+
+					//does item exist?
+					Item* found = getClassic(month, year, actorF, actorL);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: C " << month << " " <<
+							actorF << " " << actorL << " " << endl;
+					}
+
+					
+
+
+				}
+
+				else if (genre == 'D')
+				{
+					//get director
+					string director;
+					char character = infile.get();
+
+					while (character != ',')
+					{
+						director += character;
+						character = infile.get();
+					}
+
+					//get title
+					string title;
+					character = infile.get();
+
+					while (character != ',')
+					{
+						title += character;
+						character = infile.get();
+					}
+
+					//does item exist?
+					Item* found = getDrama(director, title);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: D " << director << " " << title << endl;
+					}
+
+				}
+
+				else if (genre == 'F')
+				{
+					//get title
+					string title;
+					char character = infile.get();
+
+					while (character != ',')
+					{
+						title += character;
+						character = infile.get();
+					}
+
+					//get year
+					int year;
+					infile >> year;
+
+					//does item exist?
+					Item* found = getComedy(title, year);
+
+					if (found != NULL)
+					{
+						//set the found item in rental
+						rental->setItem(found);
+
+						//store completed transaction in history
+						list<Transaction*>  temp = history.at(rental->getCustID());
+						temp.push_back(rental);
+					}
+
+					//item not found
+					else
+					{
+						cout << "Non-Existent video entered. Invalid Line: F " << media << " " << genre << " ";
+
+						//print out the rest of the line
+						while (!infile.eof() && infile.get() != '\n')
+						{
+							cout << infile.get();
+						}
+
+						//spacing
+						cout << endl;
+					}
+				}
+
+				//Invalid movie!
+				else
+				{
+					cout << "Non-Existent video entered. Invalid Line: " << "B " << rental->getCustID() << " " <<
+						media << " " << genre << " ";
+
+					//print out the rest of the line
+					while (!infile.eof() && infile.get() != '\n')
+					{
+						cout << infile.get();
+					}
+
+					//spacing
+					cout << endl;
+				}
 
 			}
 
@@ -150,7 +315,16 @@ void Store::processCommands(ifstream& infile)
 
 		else //invalid Action!
 		{
+			cout << "Invalid Command entered. Invalid Line: ";
 
+			//print out the rest of the line
+			while (!infile.eof() && infile.get() != '\n')
+			{
+				cout << infile.get();
+			}
+
+			//spacing
+			cout << endl;
 		}
 
 	}
@@ -160,14 +334,12 @@ void Store::processCommands(ifstream& infile)
 void Store::displayHistory(int customerId) const
 {
 	cout << "Transactions for customer with id " << customerId << "   Name: " << customers.at(customerId)->getFName() << " " 
-		<< customers.find(customerId)->second->getLName() << endl;
-	if (history.find(customerId) != history.end())
+		<< customers.at(customerId)->getLName() << endl;
+	
+	list<Transaction*>  temp = history.at(customerId);
+	for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator) 
 	{
-		list<Transaction*>  temp = history.find(customerId)->second;
-		for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator)
-		{
-			(*iterator)->display();
-		}
+		(*iterator)->display();
 	}
 }
 

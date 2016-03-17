@@ -60,7 +60,7 @@ private:
 
 	//Stores data of transaction history of a customer
 	//Maps customerId to a list of transactions
-	map<int, list<Transaction *>> history;
+	map<int, list<Transaction *> > history;
 
 	//getter methods
 	Customer * getCustomer(int id);
