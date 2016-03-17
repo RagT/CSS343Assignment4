@@ -102,6 +102,15 @@ set<Item*> ItemStorage::getComedies()
 	return comedies;
 }
 
+void ItemStorage::displayAll()
+{
+	for (int i = 0; i < arrLength; i++)
+	{
+		if(ItemArr[i] != NULL)
+			cout << *ItemArr[i];
+	}
+}
+
 //Resizes array to have double the capacity if load factor is above 0.5
 void ItemStorage::resize()
 {
