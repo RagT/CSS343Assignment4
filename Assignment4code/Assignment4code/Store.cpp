@@ -68,7 +68,7 @@ void Store::processCommands(ifstream& infile)
 {
 	while (!infile.eof())
 	{
-		Transaction * movieRental = NULL;
+		Transaction * rental = NULL;
 
 		//Action Type "I" - do nothing, "H" - display customer
 		//"B" - Borrow item, "R" - Return item
@@ -87,15 +87,14 @@ void Store::processCommands(ifstream& infile)
 			//Label
 			cout << "----------------------Customer Transactions------------------" << endl;
 
+			//Customer's ID
 			int custID;
-
 			infile >> custID;
 
 			Customer* temp = getCustomer(custID);
 
 			//check to see if customer exists
-			//YES
-			if (temp != NULL)
+			if (temp != NULL) //YES
 			{
 				//display customer
 				cout << "Customer ID: " << custID << temp->getFName() << " " << temp->getLName() << endl;
@@ -103,8 +102,8 @@ void Store::processCommands(ifstream& infile)
 				//display customer's history
 				displayHistory(custID);
 			}
-			//NO
-			else
+			
+			else //NO
 			{
 				cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 			}
@@ -113,6 +112,33 @@ void Store::processCommands(ifstream& infile)
 		//B: Set Transaction as borrowed
 		else if (actionType == 'B')
 		{
+			//Customer's ID
+			int custID;
+			infile >> custID;
+
+			Customer* cust = getCustomer(custID);
+			//check to see if customer exists
+			if (cust != NULL) //YES
+			{
+				//set returned as false
+				rental->setBorrowed();
+
+				//set Customer's ID in the Transaction
+				rental->setCustID(custID);
+				
+				//set the MediaType in the Transaction
+				char media = NULL;
+				infile >> media;
+				rental->setMediaType(media);
+
+
+
+			}
+
+			else //NO
+			{
+				cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
+			}
 
 		}
 

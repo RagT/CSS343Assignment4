@@ -23,6 +23,16 @@ Item* Transaction::getItem()
 	return itemCheckedOut;
 }
 
+int Transaction::getCustID()
+{
+	return custID;
+}
+
+char Transaction::getMedia()
+{
+	return mediaType;
+}
+
 bool Transaction::isReturned() const
 {
 	return returned;
