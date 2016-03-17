@@ -73,7 +73,7 @@ void Store::processCommands(ifstream& infile)
 		//Action Type "I" - do nothing, "H" - display customer
 		//"B" - Borrow item, "R" - Return item
 		char actionType = infile.get();
-		
+
 		//I: Go to next line
 		if (actionType == 'I')
 		{
@@ -84,12 +84,12 @@ void Store::processCommands(ifstream& infile)
 		//H: Display Customer's History
 		else if (actionType == 'H')
 		{
-			//Label
-			cout << "----------------------Customer Transactions------------------" << endl;
-
 			//Customer's ID
 			int custID;
 			infile >> custID;
+
+			//Label
+			cout << "----------------------Customer Transactions------------------" << endl;
 
 			Customer* temp = getCustomer(custID);
 
@@ -97,7 +97,7 @@ void Store::processCommands(ifstream& infile)
 			if (temp != NULL) //YES
 			{
 				//display customer
-				cout << "Customer ID: " << custID << temp->getFName() << " " << temp->getLName() << endl;
+				cout << "Customer ID: " << custID << " " << temp->getFName() << " " << temp->getLName() << endl;
 
 				//display customer's history
 				displayHistory(custID);
@@ -121,6 +121,8 @@ void Store::processCommands(ifstream& infile)
 			//check to see if customer exists
 			if (cust != NULL) //YES
 			{
+				rental = new Transaction();
+
 				//set returned as false
 				rental->setBorrowed();
 
@@ -131,6 +133,7 @@ void Store::processCommands(ifstream& infile)
 				char media;
 				infile >> media;
 				rental->setMediaType(media);
+				infile.get();
 
 				//get genre
 				char genre;
@@ -149,6 +152,7 @@ void Store::processCommands(ifstream& infile)
 
 					//get actor first name
 					string actorF;
+					infile.get();
 					char character = infile.get();
 
 					while (character != ' ')
@@ -179,8 +183,17 @@ void Store::processCommands(ifstream& infile)
 
 
 						//store completed transaction in history
-						list<Transaction*>  temp = history.at(rental->getCustID());
-						temp.push_back(rental);
+						if (history.find(rental->getCustID()) != history.end())
+						{
+							list<Transaction*>  temp = history.find(rental->getCustID())->second;
+							temp.push_back(rental);
+						}
+						else
+						{
+							list<Transaction*> newList;
+							newList.push_back(rental);
+							history.insert(std::map<int, list<Transaction*>>::value_type(0, newList));
+						}
 					}
 
 					//item not found
@@ -191,8 +204,6 @@ void Store::processCommands(ifstream& infile)
 					}
 
 					
-
-
 				}
 
 				else if (genre == 'D')
@@ -226,8 +237,17 @@ void Store::processCommands(ifstream& infile)
 						rental->setItem(found);
 
 						//store completed transaction in history
-						list<Transaction*>  temp = history.find(rental->getCustID())->second;
-						temp.push_back(rental);
+						if (history.find(rental->getCustID()) != history.end())
+						{
+							list<Transaction*>  temp = history.find(rental->getCustID())->second;
+							temp.push_back(rental);
+						}
+						else
+						{
+							list<Transaction*> newList;
+							newList.push_back(rental);
+							history.insert(std::map<int, list<Transaction*>>::value_type(0, newList));
+						}
 					}
 
 					//item not found
@@ -263,8 +283,17 @@ void Store::processCommands(ifstream& infile)
 						rental->setItem(found);
 
 						//store completed transaction in history
-						list<Transaction*>  temp = history.find(rental->getCustID())->second;
-						temp.push_back(rental);
+						if (history.find(rental->getCustID()) != history.end())
+						{
+							list<Transaction*>  temp = history.find(rental->getCustID())->second;
+							temp.push_back(rental);
+						}
+						else
+						{
+							list<Transaction*> newList;
+							newList.push_back(rental);
+							history.insert(std::map<int, list<Transaction*>>::value_type(0, newList));
+						}
 					}
 
 					//item not found
@@ -334,8 +363,6 @@ void Store::processCommands(ifstream& infile)
 //Displays the history of transactions (Checkouts and Returns) for customer with given id
 void Store::displayHistory(int customerId) const
 {
-	cout << "Transactions for customer with id " << customerId << "   Name: " << customers.find(customerId)->second->getFName() << " " 
-		<< customers.find(customerId)->second->getLName() << endl;
 	if (history.find(customerId) != history.end())
 	{
 		list<Transaction*>  temp = history.find(customerId)->second;

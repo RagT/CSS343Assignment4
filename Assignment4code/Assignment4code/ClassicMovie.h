@@ -37,4 +37,5 @@ public:
 
 	string getInfo() const;
 	void setData(ifstream& infile);
+	int hashCode() const;
 };

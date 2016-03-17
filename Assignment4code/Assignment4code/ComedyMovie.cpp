@@ -60,3 +60,8 @@ void ComedyMovie::setData(ifstream & infile)
 	infile >> releaseYear;
 	infile.get();
 }
+
+int ComedyMovie::hashCode() const
+{
+	return hashString(title) + releaseYear;
+}

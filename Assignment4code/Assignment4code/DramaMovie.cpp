@@ -62,3 +62,8 @@ void DramaMovie::setData(ifstream & infile)
 	infile >> releaseYear;
 	infile.get();
 }
+
+int DramaMovie::hashCode() const
+{
+	return hashString(title) + hashString(director);
+}

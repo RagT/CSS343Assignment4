@@ -23,7 +23,7 @@ bool ClassicMovie::operator==(Item & other) const
 	//cast down to classic movie from item
 	const ClassicMovie& classicMovie = static_cast<const ClassicMovie&>(other);
 	 return this->releaseYear == classicMovie.releaseYear && this->releaseMonth == classicMovie.releaseMonth
-		&& this->majorActorFirst == classicMovie.getMajorActor();
+		&& this->majorActorFirst == classicMovie.majorActorFirst && this->majorActorLast == classicMovie.majorActorLast;
 }
 
 bool ClassicMovie::operator<(Item & other) const
@@ -78,5 +78,10 @@ void ClassicMovie::setData(ifstream & infile)
 	infile.get();
 	infile >> releaseYear;
 	infile.get();
+}
+
+int ClassicMovie::hashCode() const
+{
+	return releaseYear + releaseMonth + hashString(majorActorFirst) + hashString(majorActorLast);
 }
 

@@ -42,7 +42,7 @@ public:
 
 	virtual string getInfo() const = 0;
 
-	int hashCode() const;
+	virtual int hashCode() const = 0;
 
 	//Reads in Item from file
 	virtual void setData(ifstream& infile) = 0;

@@ -34,8 +34,3 @@ int Movie::getReleaseYear() const
   return releaseYear;
 }
 
-int Movie::hashCode() const
-{
-	return hashString(title) + hashString(director) + releaseYear;
-}
-

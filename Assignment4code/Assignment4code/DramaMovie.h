@@ -22,4 +22,5 @@ public:
 
 	//Reads in Item from file
 	void setData(ifstream& infile);
+	int hashCode() const;
 };
