@@ -153,3 +153,27 @@ Customer * Store::getCustomer(int id)
 {
 	return customers[id];
 }
+
+Item * Store::getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast)
+{
+	ClassicMovie classic("", 0, "", releaseYear, releaseMonth, majorActorFirst, majorActorLast);
+	Item * itemToRetrieve = NULL;
+	inventory.find(&classic, itemToRetrieve);
+	return itemToRetrieve;
+}
+
+Item * Store::getDrama(string director, string title)
+{
+	DramaMovie drama(title, 0, director, 0);
+	Item * itemToRetrieve = NULL;
+	inventory.find(&drama, itemToRetrieve);
+	return itemToRetrieve;
+}
+
+Item * Store::getComedy(string title, int releaseYear)
+{
+	DramaMovie comedy(title, 0, "", releaseYear);
+	Item * itemToRetrieve = NULL;
+	inventory.find(&comedy, itemToRetrieve);
+	return itemToRetrieve;
+}

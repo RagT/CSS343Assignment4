@@ -33,7 +33,7 @@ bool ComedyMovie::operator>(Item & other) const
 string ComedyMovie::getInfo() const
 {
 	return "Title: " + title + "   Release Year: " + to_string(releaseYear)
-		+ "   Director: " + director;
+		+ "   Director: " + director + "Stock: " + to_string(stock);
 }
 
 void ComedyMovie::setData(ifstream & infile)

@@ -64,5 +64,7 @@ private:
 
 	//getter methods
 	Customer * getCustomer(int id);
-	Item * getItem(string name, string itemType, string itemData);
+	Item * getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast);
+	Item * getDrama(string director, string title);
+	Item * getComedy(string title, int releaseYear);
 };
