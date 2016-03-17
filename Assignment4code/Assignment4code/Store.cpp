@@ -1,7 +1,7 @@
 #include "Store.h"
 #include <iostream>
 #include <fstream>
-
+#include <limits>
 
 
 Store::Store()
