@@ -23,6 +23,11 @@ Item* Transaction::getItem()
 	return itemCheckedOut;
 }
 
+bool Transaction::isReturned() const
+{
+	return returned;
+}
+
 void Transaction::setBorrowed()
 {
 	returned = false;

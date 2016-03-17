@@ -136,6 +136,7 @@ void Store::displayHistory(int customerId) const
 	cout << "Transactions for customer with id " << customerId << "Name: " << customers.at(customerId)->getFName() << " " 
 		<< customers.at(customerId)->getLName() << endl;
 	list<Transaction*>  temp = history.at(customerId);
+
 	for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator) 
 	{
 		cout << "Item Checked Out: " << endl << (*iterator)->getItem()->getInfo() << endl;
