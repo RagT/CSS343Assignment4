@@ -479,9 +479,10 @@ void Store::printClassics()
 {
 	cout << "--------------------Classics-----------------" << endl;
 	set<Item*> classics = inventory.getClassics();
-	for (Item * classic : classics)
+	for (set<Item*>::iterator it = classics.begin(); it != classics.end(); ++it)
 	{
-		string info = classic->getInfo();
+		Item * i = *it;
+		string info = i->getInfo();
 		cout << info << endl;
 	}
 }
@@ -490,9 +491,10 @@ void Store::printComedies()
 {
 	cout << "--------------------Comedies-----------------" << endl;
 	set<Item*> comedies = inventory.getComedies();
-	for (Item * comedy : comedies)
+	for (set<Item*>::iterator it = comedies.begin(); it != comedies.end(); ++it)
 	{
-		string info = comedy->getInfo();
+		Item * i = *it;
+		string info = i->getInfo();
 		cout << info << endl;
 	}
 }
@@ -501,9 +503,10 @@ void Store::printDramas()
 {
 	cout << "--------------------Dramas------------------" << endl;
 	set<Item*> dramas = inventory.getDramas();
-	for (Item * drama : dramas)
+	for (set<Item*>::iterator it = dramas.begin(); it != dramas.end(); ++it) 
 	{
-		string info = drama->getInfo();
+		Item * i = *it;
+		string info = i->getInfo();
 		cout << info << endl;
 	}
 }
