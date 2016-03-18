@@ -464,3 +464,8 @@ void Store::printRestOfLine(ifstream & infile) const
 	//spacing
 	cout << restOfLine << endl;
 }
+
+void Store::printInventory()
+{
+	inventory.displayAll();
+}
