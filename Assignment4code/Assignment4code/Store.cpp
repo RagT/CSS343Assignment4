@@ -386,6 +386,8 @@ void Store::processHistory(ifstream& infile)
 		cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 	}
 
+	//get rid of '\n'
+	infile.get();
 }
 
 //----------------displayHistory---------------------------
@@ -439,4 +441,11 @@ Item * Store::getComedy(string title, int releaseYear)
 	Item * itemToRetrieve = NULL;
 	inventory.find(&comedy, itemToRetrieve);
 	return itemToRetrieve;
+}
+
+//-------------getInventory----------------
+//get inventory so that it can be displayed
+ItemStorage Store::getInventory()
+{
+	return inventory;
 }
