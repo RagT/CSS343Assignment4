@@ -76,8 +76,7 @@ void Store::processCommands(ifstream& infile)
 		//create a Transaction
 		Transaction * rental = new Transaction;
 
-		//Action Type "I" - do nothing, "H" - display customer
-		//"B" - Borrow item, "R" - Return item
+		//Action Types (I, H, B, R)
 		char actionType = infile.get();
 		
 		//I: Go to next line
@@ -96,16 +95,11 @@ void Store::processCommands(ifstream& infile)
 
 		//B: Set Transaction as borrowed, determine which genre 
 		//and assign it to the Customer in their history
-		else if (actionType == 'B')
+		//R: Set Transaction as returned, increment stock
+		else if (actionType == 'B' || actionType == 'R')
 		{
 			//Process & create a borrowed Transaction
-			createBTransaction(rental, infile);
-		}
-
-		//R: Set Transaction as returned
-		else if (actionType == 'R')
-		{
-
+			createTransaction(actionType, rental, infile);
 		}
 
 		else //invalid Action!
@@ -125,14 +119,17 @@ void Store::processCommands(ifstream& infile)
 	//delete Transaction pointer
 	delete rental;
 	rental = NULL;
+
 	}
 }
+
 
 //-----------------createBorrowedTransaction--------------------------
 //Takes a Transaction Pointer and infile from the processCommands()
 //Verifies Customer ID with the customers in the database
 //Determines which genre movie is being rented and verifies that movie exists
-void Store::createBTransaction(Transaction* &rental, ifstream& infile)
+//Calls completeTransaction to complete the transaction by inserting into history
+void Store::createTransaction(char actionType, Transaction* &rental, ifstream& infile)
 {
 	//read in Customer's ID from infile
 	int custID;
@@ -144,9 +141,6 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 	//check to see if customer exists
 	if (cust != NULL) //YES
 	{
-		//set returned as false
-		rental->setBorrowed();
-
 		//set Customer's ID in the Transaction
 		rental->setCustID(custID);
 
@@ -158,6 +152,9 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 		//get genre from infile
 		char genre;
 		infile >> genre;
+
+		//set genre in Transaction
+		rental->setGenre(genre);
 
 		//using correct format for Classic Movie
 		if (genre == 'C')
@@ -195,25 +192,8 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 			//does item exist?
 			Item* found = getClassic(month, year, actorF, actorL);
 
-			//Item was found
-			if (found != NULL)
-			{
-				//set the found item in rental
-				rental->setItem(found);
-
-
-				//store completed transaction in history
-				list<Transaction*>  temp = history.at(rental->getCustID());
-				temp.push_back(rental);
-			}
-
-			//item not found
-			else
-			{
-				//display error message with the rejected line
-				cout << "Non-Existent video entered. Invalid Line: C " << month << " " <<
-					actorF << " " << actorL << " " << endl;
-			}
+			//complete transaction
+			completeTransaction(actionType, found, rental);
 
 		}
 
@@ -245,23 +225,8 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 			//does item exist?
 			Item* found = getDrama(director, title);
 
-			//Item was found
-			if (found != NULL)
-			{
-				//set the found item in rental
-				rental->setItem(found);
-
-				//store completed transaction in history
-				list<Transaction*>  temp = history.find(rental->getCustID())->second;
-				temp.push_back(rental);
-			}
-
-			//item not found
-			else
-			{
-				//prints error message with rejected line
-				cout << "Non-Existent video entered. Invalid Line: D " << director << " " << title << endl;
-			}
+			//complete transaction
+			completeTransaction(actionType, found, rental);
 
 		}
 
@@ -286,31 +251,15 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 			//does item exist?
 			Item* found = getComedy(title, year);
 
-			//Yes: Item is found
-			if (found != NULL)
-			{
-				//set the found item in rental
-				rental->setItem(found);
-
-				//store completed transaction in history
-				list<Transaction*>  temp = history.find(rental->getCustID())->second;
-				temp.push_back(rental);
-			}
-
-			//No: item not found
-			else
-			{
-				//print out error message with the line
-				cout << "Non-Existent video entered. Invalid Line: F " << title << ", " << year
-					<< endl;
-			}
+			//complete transaction
+			completeTransaction(actionType, found, rental);
 		}
 
 		//Invalid movie! (Genre code is incorrect)
 		else
 		{
 			//print out error message with the line
-			cout << "Non-Existent video entered. Invalid Line: " << "B " << rental->getCustID() << " " <<
+			cout << "Non-Existent video entered. Invalid Line: B "  << rental->getCustID() << " " <<
 				media << " " << genre << " ";
 
 			//print out the rest of the line
@@ -328,13 +277,87 @@ void Store::createBTransaction(Transaction* &rental, ifstream& infile)
 	else //NO: Customer does not exist
 	{
 		//print out error message with the line
-		cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
+		cout << "Non-Existent customer entered. Invalid Line: " << custID << endl;
 
-		//gets rid of '\n'
-		infile.get();
+		//print out the rest of the line
+		while (!infile.eof() && infile.get() != '\n')
+		{
+			cout << infile.get();
+		}
+
+		//spacing
+		cout << endl;
 	}
 }
 
+//-----------------completeTransaction-------------------------------
+//Takes in an Item and a Transaction from createTransaction function (for all genres)
+//If Item exists, Customer's history is updated
+//If Item does not exist, error message is printed with the rejected line
+void Store::completeTransaction(char actionType, Item* & found, Transaction* & rental)
+{
+	//Yes: Item is found
+	if (found != NULL)
+	{
+		//initiate a borrow
+		if (actionType == 'B')
+		{
+			if (found->getStock() != 0)
+			{
+				//set returned as false
+				rental->setBorrowed();
+
+				//checked item out: decrement stock
+				found->decrementStock();
+
+				//set the found item in rental
+				rental->setItem(found);
+
+				//store completed transaction in history
+				list<Transaction*>  temp = history.find(rental->getCustID())->second;
+				temp.push_back(rental);
+			}
+
+			//Item is out of stock!
+			else
+			{
+				cout << "Sorry! The Movie " << found->getInfo() << "is currently out of stock!" << endl;
+			}
+
+		}
+
+		//initiate a return
+		else
+		{
+			//set returned as true
+			rental->returnItem();
+
+			//checked item in: increment stock
+			found->incrementStock();
+
+			//set the found item in rental
+			rental->setItem(found);
+
+			//store completed transaction in history
+			list<Transaction*>  temp = history.find(rental->getCustID())->second;
+			temp.push_back(rental);
+		}
+
+		
+	}
+
+	//No: item not found
+	else
+	{
+		//print out error message with the line
+		cout << "Non-Existent video entered. Invalid Line: " << actionType << " " << rental->getCustID() << " " << 
+			rental->getMedia() << " " << rental->getGenre << endl;
+	}
+
+}
+
+//----------------------processHistory--------------------
+//Takes in the infile as a reference and prints out a customer's history
 void Store::processHistory(ifstream& infile)
 {
 	//Label for displaying Transactions of a particular Customer
@@ -363,10 +386,9 @@ void Store::processHistory(ifstream& infile)
 		cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 	}
 
-	//gets rid of '\n'
-	infile.get();
 }
 
+//----------------displayHistory---------------------------
 //Displays the history of transactions (Checkouts and Returns) for customer with given id
 void Store::displayHistory(int customerId) const
 {
@@ -380,11 +402,15 @@ void Store::displayHistory(int customerId) const
 	}
 }
 
+//---------------getCustomer----------------
+//Retrieves a customer by their ID
 Customer * Store::getCustomer(int id)
 {
 	return customers[id];
 }
 
+//---------------getCustomer----------------
+//Retrieves a customer by their ID
 Item * Store::getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast)
 {
 	ClassicMovie classic("", 0, "", releaseYear, releaseMonth, majorActorFirst, majorActorLast);
@@ -393,6 +419,9 @@ Item * Store::getClassic(int releaseMonth, int releaseYear, string majorActorFir
 	return itemToRetrieve;
 }
 
+//---------------getDrama----------------
+//Retrieves a drama movie by searching for it
+//by it's title and year within the 
 Item * Store::getDrama(string director, string title)
 {
 	DramaMovie drama(title, 0, director, 0);
@@ -401,9 +430,12 @@ Item * Store::getDrama(string director, string title)
 	return itemToRetrieve;
 }
 
+//---------------getComedy----------------
+//Retrieves a comedy movie by searching for it
+//by it's title and year within the 
 Item * Store::getComedy(string title, int releaseYear)
 {
-	DramaMovie comedy(title, 0, "", releaseYear);
+	ComedyMovie comedy(title, 0, "", releaseYear);
 	Item * itemToRetrieve = NULL;
 	inventory.find(&comedy, itemToRetrieve);
 	return itemToRetrieve;
