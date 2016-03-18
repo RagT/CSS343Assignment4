@@ -18,6 +18,8 @@ int main()
 	MovieStore.buildCustomers(customers);
 	MovieStore.addItems(movies);
 	
+	MovieStore.printInventory();
+
 	MovieStore.processCommands(commands);
 	cout << endl;
 

@@ -49,6 +49,9 @@ public:
 
 	//Validates movie then completes Transaction
 	void completeTransaction(char, Item* &, Transaction* &);
+	
+	//Prints inventory of store
+	void printInventory();
 
 	//Print each genre of movie
 	void printClassics();
