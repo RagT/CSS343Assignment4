@@ -18,9 +18,6 @@ int main()
 	MovieStore.buildCustomers(customers);
 	MovieStore.addItems(movies);
 	
-	//display inventory
-	ItemStorage forDisplay = MovieStore.getInventory();
-	forDisplay.displayAll();
-	
+	//display inventory	
 	MovieStore.processCommands(commands);
 }
