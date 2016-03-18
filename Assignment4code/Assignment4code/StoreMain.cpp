@@ -20,4 +20,8 @@ int main()
 	
 	//display inventory	
 	MovieStore.processCommands(commands);
+	cout << endl;
+	MovieStore.printClassics();
+	MovieStore.printComedies();
+	MovieStore.printDramas();
 }

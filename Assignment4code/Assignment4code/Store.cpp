@@ -57,8 +57,9 @@ void Store::addItems(ifstream & infile)
 		}
 		else
 		{
-			cout << "Error Invalid Item Type: " << itemType << endl;
-			infile.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Error Invalid Item Type: " << itemType;
+			printRestOfLine(infile);
+			cout << endl;
 		}
 	}
 }
@@ -455,7 +456,7 @@ void Store::printRestOfLine(ifstream & infile) const
 	string restOfLine = "";
 	char character = infile.get();
 	//print out the rest of the line
-	while (character != '\n')
+	while (!infile.eof() && character != '\n')
 	{
 		restOfLine += character;
 		character = infile.get();
@@ -463,4 +464,38 @@ void Store::printRestOfLine(ifstream & infile) const
 
 	//spacing
 	cout << restOfLine << endl;
+}
+
+void Store::printClassics()
+{
+	cout << "--------------------Classics-----------------" << endl;
+	set<Item*> classics = inventory.getClassics();
+	for (Item * classic : classics)
+	{
+		string info = classic->getInfo();
+		cout << info << endl;
+	}
+}
+
+void Store::printComedies()
+{
+	cout << "--------------------Comedies-----------------" << endl;
+	set<Item*> comedies = inventory.getComedies();
+	for (Item * comedy : comedies)
+	{
+		string info = comedy->getInfo();
+		cout << info << endl;
+	}
+}
+
+void Store::printDramas()
+{
+	cout << "--------------------Dramas------------------" << endl;
+	set<Item*> dramas = inventory.getDramas();
+	for (Item * drama : dramas)
+	{
+		string info = drama->getInfo();
+		cout << endl;
+		cout << info << endl;
+	}
 }
