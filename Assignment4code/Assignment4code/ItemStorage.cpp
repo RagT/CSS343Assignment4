@@ -118,6 +118,9 @@ void ItemStorage::displayAll()
 		if (ItemArr[i] != NULL)
 			cout << ItemArr[i]->getInfo() << endl;
 	}
+	
+	//spacing
+	cout << endl;
 }
 
 //Resizes array to have double the capacity if load factor is above 0.5
