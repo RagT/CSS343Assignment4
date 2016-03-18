@@ -23,7 +23,6 @@ int main()
 	
 	MovieStore.processCommands(commands);
 	cout << endl;
-	MovieStore.printClassics();
-	MovieStore.printComedies();
-	MovieStore.printDramas();
+
+	MovieStore.printInventory();
 }

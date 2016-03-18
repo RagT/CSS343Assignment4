@@ -365,6 +365,15 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 
 }
 
+//Prints out entire store inventory
+void Store::printInventory()
+{
+	printClassics();
+	printComedies();
+	printDramas();
+	cout << endl;
+}
+
 //----------------------processHistory--------------------
 //Takes in the infile as a reference and prints out a customer's history
 void Store::processHistory(ifstream& infile)
@@ -495,7 +504,6 @@ void Store::printDramas()
 	for (Item * drama : dramas)
 	{
 		string info = drama->getInfo();
-		cout << endl;
 		cout << info << endl;
 	}
 }
