@@ -170,6 +170,7 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 
 			//get actor first name from txt file
 			string actorF;
+			infile.get();
 			char character = infile.get();
 
 			//build actor's first name until space
