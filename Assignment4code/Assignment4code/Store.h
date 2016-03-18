@@ -66,4 +66,6 @@ private:
 	Item * getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast);
 	Item * getDrama(string director, string title);
 	Item * getComedy(string title, int releaseYear);
+
+	void printRestOfLine(ifstream& infile) const;
 };

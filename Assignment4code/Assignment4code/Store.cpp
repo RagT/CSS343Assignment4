@@ -48,7 +48,7 @@ void Store::addItems(ifstream & infile)
 			newItem = new ComedyMovie();
 			newItem->setData(infile);
 			inventory.insert(newItem, itemType);
-		} 
+		}
 		else if (itemType == 'C')
 		{
 			newItem = new ClassicMovie();
@@ -78,7 +78,7 @@ void Store::processCommands(ifstream& infile)
 
 		//Action Types (I, H, B, R)
 		char actionType = infile.get();
-		
+
 		//I: Go to next line
 		if (actionType == 'I')
 		{
@@ -91,6 +91,8 @@ void Store::processCommands(ifstream& infile)
 		{
 			//process and displays history from txt file
 			processHistory(infile);
+
+			cout << endl;
 		}
 
 		//B: Set Transaction as borrowed, determine which genre 
@@ -104,21 +106,18 @@ void Store::processCommands(ifstream& infile)
 
 		else //invalid Action!
 		{
-			cout << "Invalid Command entered. Invalid Line: ";
+			cout << "Invalid Command entered. Ignoring line.";
 
-			//print out the rest of the invalid line
-			while (!infile.eof() && infile.get() != '\n')
-			{
-				cout << infile.get();
-			}
+			//remaining data is useless, so skip it
+			infile.ignore(numeric_limits<streamsize>::max(), '\n');
 
 			//spacing
 			cout << endl;
 		}
 
-	//delete Transaction pointer
-	delete rental;
-	rental = NULL;
+		//delete Transaction pointer
+		delete rental;
+		rental = NULL;
 
 	}
 }
@@ -172,7 +171,7 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 			string actorF;
 			infile.get();
 			char character = infile.get();
-
+			
 			//build actor's first name until space
 			while (character != ' ')
 			{
@@ -206,12 +205,15 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 			string director;
 			char character = infile.get();
 
-			//build title until comma is reached
+			//build director until comma is reached
 			while (character != ',')
 			{
 				director += character;
 				character = infile.get();
 			}
+
+			//Problem: get rid of space
+			infile.get();
 
 			//get title from txt file
 			string title;
@@ -223,6 +225,9 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 				title += character;
 				character = infile.get();
 			}
+
+			//clear '\n'
+			infile.get();
 
 			//does item exist?
 			Item* found = getDrama(director, title);
@@ -255,23 +260,18 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 
 			//complete transaction
 			completeTransaction(actionType, found, rental);
+
+			infile.get();
 		}
 
 		//Invalid movie! (Genre code is incorrect)
 		else
 		{
 			//print out error message with the line
-			cout << "Non-Existent video entered. Invalid Line: B "  << rental->getCustID() << " " <<
+			cout << "Non-Existent video entered. Invalid Line: B " << rental->getCustID() << " " <<
 				media << " " << genre << " ";
-
-			//print out the rest of the line
-			while (!infile.eof() && infile.get() != '\n')
-			{
-				cout << infile.get();
-			}
-
-			//spacing
-			cout << endl;
+			printRestOfLine(infile);
+			
 		}
 
 	}
@@ -280,15 +280,7 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 	{
 		//print out error message with the line
 		cout << "Non-Existent customer entered. Invalid Line: " << custID << endl;
-
-		//print out the rest of the line
-		while (!infile.eof() && infile.get() != '\n')
-		{
-			cout << infile.get();
-		}
-
-		//spacing
-		cout << endl;
+		printRestOfLine(infile);
 	}
 }
 
@@ -344,7 +336,7 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 			//checked item in: increment stock
 			found->incrementStock();
 
-			//set the found item in rental
+			//set the found item in rental transaction
 			rental->setItem(found);
 
 			//store completed transaction in history
@@ -359,14 +351,14 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 			}
 		}
 
-		
+
 	}
 
 	//No: item not found
 	else
 	{
 		//print out error message with the line
-		cout << "Non-Existent video entered. Invalid Line: " << actionType << " " << rental->getCustID() << " " << 
+		cout << "Non-Existent video entered. Invalid Line: " << actionType << " " << rental->getCustID() << " " <<
 			rental->getMedia() << " " << rental->getGenre() << endl;
 	}
 
@@ -422,18 +414,12 @@ void Store::displayHistory(int customerId) const
 //Retrieves a customer by their ID
 Customer * Store::getCustomer(int id)
 {
-	if (customers.find(id) != customers.end())
-	{
-		return customers[id];
-	}
-	else
-	{
-		return NULL;
-	}
+	return customers[id];
 }
 
 //---------------getClassic----------------
-//Retrieves a customer by their ID
+//Retrieves a classic movie by searching for it
+//by it's title and year within the 
 Item * Store::getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast)
 {
 	ClassicMovie classic("", 0, "", releaseYear, releaseMonth, majorActorFirst, majorActorLast);
@@ -462,4 +448,19 @@ Item * Store::getComedy(string title, int releaseYear)
 	Item * itemToRetrieve = NULL;
 	inventory.find(&comedy, itemToRetrieve);
 	return itemToRetrieve;
+}
+
+void Store::printRestOfLine(ifstream & infile) const
+{
+	string restOfLine = "";
+	char character = infile.get();
+	//print out the rest of the line
+	while (character != '\n')
+	{
+		restOfLine += character;
+		character = infile.get();
+	}
+
+	//spacing
+	cout << restOfLine << endl;
 }
