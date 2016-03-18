@@ -18,6 +18,8 @@ int main()
 	MovieStore.buildCustomers(customers);
 	MovieStore.addItems(movies);
 	
-	//display inventory	
+	//display inventory
+	MovieStore.printInventory();
+	
 	MovieStore.processCommands(commands);
 }
