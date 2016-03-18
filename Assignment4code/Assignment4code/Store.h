@@ -58,6 +58,9 @@ public:
 
 	//Validates movie then completes Transaction
 	void completeTransaction(char, Item* &, Transaction* &);
+	
+	//get inventory
+	ItemStorage getInventory();
 
 
 private:

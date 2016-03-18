@@ -116,11 +116,15 @@ set<Item*> ItemStorage::getComedies()
 
 void ItemStorage::displayAll()
 {
+	cout << "-----Inventory of Movies (Classics, Dramas, Comedies)------" << endl;
 	for (int i = 0; i < arrLength; i++)
 	{
 		if (ItemArr[i] != NULL)
-			cout << ItemArr[i]->getInfo();
+			cout << ItemArr[i]->getInfo() << endl;
 	}
+	
+	//spacing
+	cout << endl;
 }
 
 //Resizes array to have double the capacity if load factor is above 0.5
