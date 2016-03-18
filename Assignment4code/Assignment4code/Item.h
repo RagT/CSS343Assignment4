@@ -6,6 +6,7 @@ Abstract class. Must be inherited from.
 #pragma once
 #include <string>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 class Item
@@ -37,4 +38,6 @@ public:
 
 	//Reads in Item from file
 	virtual void setData(ifstream& infile) = 0;
+
+	string to_string(int val);
 };

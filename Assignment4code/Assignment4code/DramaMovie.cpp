@@ -34,8 +34,9 @@ bool DramaMovie::operator>(Item & other) const
 
 string DramaMovie::getInfo() const
 {
-	return title + "   " + to_string(releaseYear)
-		+ "     Dir: " + director + "   Stock: " + to_string(stock);
+	DramaMovie d;
+	return title + "   " + d.to_string(releaseYear)
+		+ "     Dir: " + director + "   Stock: " + d.to_string(stock);
 }
 
 void DramaMovie::setData(ifstream & infile)

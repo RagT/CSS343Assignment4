@@ -46,8 +46,9 @@ bool ClassicMovie::operator>(Item & other) const
 
 string ClassicMovie::getInfo() const
 {
-	return title + "  " + to_string(releaseMonth) + "  " + to_string(releaseYear) + "  ( " + director +
-		",  " + majorActorFirst + " " + majorActorLast + ")  Stock: " + to_string(stock);
+	ClassicMovie c;
+	return title + "  " + c.to_string(releaseMonth) + "  " + c.to_string(releaseYear) + "  ( " + director +
+		",  " + majorActorFirst + " " + majorActorLast + ")  Stock: " + c.to_string(stock);
 }
 
 void ClassicMovie::setData(ifstream & infile)

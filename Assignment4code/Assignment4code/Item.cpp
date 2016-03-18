@@ -36,3 +36,10 @@ void Item::decrementStock()
 {
 	stock--;
 }
+
+string Item::to_string(int val)
+{
+	stringstream ss;
+	ss << val;
+	return ss.str();
+}

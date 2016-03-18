@@ -5,6 +5,8 @@ Abstract class. Must be inherited from.
 */
 #pragma once
 #include "Item.h"
+#include <cstdio>
+#include <cassert>
 
 class Movie : public Item
 {
@@ -14,9 +16,7 @@ protected:
 	string title;
 	string director;
 	int releaseYear;
-
 	int hashString(const string& str) const;
-
 public:
 	Movie();
 
