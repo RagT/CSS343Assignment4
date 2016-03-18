@@ -155,6 +155,7 @@ void Store::createTransaction(char actionType, Transaction* &rental, ifstream& i
 
 		//set genre in Transaction
 		rental->setGenre(genre);
+		infile.get();
 
 		//using correct format for Classic Movie
 		if (genre == 'C')
@@ -314,8 +315,18 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 				rental->setItem(found);
 
 				//store completed transaction in history
-				list<Transaction*>  temp = history.find(rental->getCustID())->second;
-				temp.push_back(rental);
+				if (history.find(rental->getCustID()) != history.end())
+				{
+					list<Transaction*>  temp = history.find(rental->getCustID())->second;
+					temp.push_back(rental);
+				}
+				else
+				{
+					list<Transaction*> newTransaction;
+					newTransaction.push_back(rental);
+					history[rental->getCustID()] = newTransaction;
+				}
+				rental = NULL;
 			}
 
 			//Item is out of stock!
@@ -329,9 +340,6 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 		//initiate a return
 		else
 		{
-			//set returned as true
-			rental->returnItem();
-
 			//checked item in: increment stock
 			found->incrementStock();
 
@@ -340,7 +348,14 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 
 			//store completed transaction in history
 			list<Transaction*>  temp = history.find(rental->getCustID())->second;
-			temp.push_back(rental);
+			for (list<Transaction*>::const_iterator iterator = temp.begin(), end = temp.end(); iterator != end; ++iterator)
+			{
+				if (rental->getCustID() == (*iterator)->getCustID())
+				{
+					//set returned as true
+					(*iterator)->returnItem();
+				}
+			}
 		}
 
 		
@@ -385,7 +400,7 @@ void Store::processHistory(ifstream& infile)
 		//display error message with rejected line
 		cout << "Non-Existent customer entered. Invalid Line: " << "H " << custID << endl;
 	}
-
+	infile.get();
 }
 
 //----------------displayHistory---------------------------

@@ -2,6 +2,8 @@
 
 ClassicMovie::ClassicMovie()
 {
+	majorActorFirst = "";
+	majorActorLast = "";
 }
 
 ClassicMovie::~ClassicMovie()

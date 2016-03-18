@@ -73,7 +73,11 @@ bool ItemStorage::insert(Item * itemToInsert, char& itemType)
 bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 {
 	int code = itemToFind->hashCode();
-	if (ItemArr[code % arrLength] != NULL && *ItemArr[code % arrLength] == *itemToFind)
+	if (ItemArr[code % arrLength] == NULL)
+	{
+		return false;
+	}
+	if (*ItemArr[code % arrLength] == *itemToFind)
 	{
 		itemToRetrieve = ItemArr[code % arrLength];
 		return true;
@@ -81,12 +85,12 @@ bool ItemStorage::find(Item * itemToFind, Item *& itemToRetrieve) const
 	else
 	{
 		int foundIndex = (code + 1) % arrLength;
-		while (ItemArr[code % arrLength] == NULL || !(*ItemArr[code % arrLength] == *itemToFind) 
-			&& foundIndex == code % arrLength)
+		while (ItemArr[foundIndex] != NULL && !(*ItemArr[foundIndex] == *itemToFind)
+			&& foundIndex != code % arrLength)
 		{
 			foundIndex = (foundIndex + 1) % arrLength;
 		}
-		if (foundIndex == code % arrLength)
+		if (foundIndex == code % arrLength || ItemArr[foundIndex] == NULL)
 		{
 			return false;
 		}

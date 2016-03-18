@@ -12,6 +12,9 @@ int Movie::hashString(const string& str) const
 
 Movie::Movie()
 {
+	title = "";
+	director = "";
+	releaseYear = 0;
 }
 
 Movie::~Movie()
