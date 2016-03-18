@@ -49,12 +49,15 @@ public:
 
 	//Prints entire inventory of store to cout
 	void displayInventory() const;
-	
+
 	//Function to process actiontype H
 	void processHistory(ifstream& infile);
 
-	//Create a borrowed transaction
-	void createBTransaction(Transaction* &, ifstream&);
+	//Create a Borrow/Return transaction
+	void createTransaction(char, Transaction* &, ifstream&);
+
+	//Validates movie then completes Transaction
+	void completeTransaction(char, Item* &, Transaction* &);
 
 
 private:
