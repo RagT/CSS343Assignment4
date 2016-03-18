@@ -38,17 +38,8 @@ public:
 	//Runs all commads from passed in ifstream
 	void processCommands(ifstream& infile);
 
-	//Customer checks out item from the store
-	bool checkOut(int customerId, string itemType, string itemData);
-
-	//Customer returns item to the store
-	bool returnItem(int customerId, string itemType, string itemData);
-
 	//Get the history of a customer with given Customer id
 	void displayHistory(int customerId) const;
-
-	//Prints entire inventory of store to cout
-	void displayInventory() const;
 
 	//Function to process actiontype H
 	void processHistory(ifstream& infile);

@@ -421,10 +421,17 @@ void Store::displayHistory(int customerId) const
 //Retrieves a customer by their ID
 Customer * Store::getCustomer(int id)
 {
-	return customers[id];
+	if (customers.find(id) != customers.end())
+	{
+		return customers[id];
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
-//---------------getCustomer----------------
+//---------------getClassic----------------
 //Retrieves a customer by their ID
 Item * Store::getClassic(int releaseMonth, int releaseYear, string majorActorFirst, string majorActorLast)
 {
