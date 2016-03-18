@@ -49,6 +49,9 @@ public:
 
 	//Validates movie then completes Transaction
 	void completeTransaction(char, Item* &, Transaction* &);
+	
+	//prints all items in inventory
+	void printInventory();
 
 private:
 	//Stores items in the store
