@@ -57,8 +57,12 @@ void Store::addItems(ifstream & infile)
 		}
 		else
 		{
-			cout << "Error Invalid Item Type: " << itemType << endl;
-			infile.ignore(numeric_limits<streamsize>::max(), '\n');
+			if (itemType != '\n' || itemType != ' ')
+			{
+				cout << "Error Invalid Item Type: " << itemType << endl;
+				infile.ignore(numeric_limits<streamsize>::max(), '\n');	
+			}
+			
 		}
 	}
 }
