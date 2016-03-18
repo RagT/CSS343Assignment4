@@ -351,7 +351,7 @@ void Store::completeTransaction(char actionType, Item* & found, Transaction* & r
 	{
 		//print out error message with the line
 		cout << "Non-Existent video entered. Invalid Line: " << actionType << " " << rental->getCustID() << " " << 
-			rental->getMedia() << " " << rental->getGenre << endl;
+			rental->getMedia() << " " << rental->getGenre() << endl;
 	}
 
 }
